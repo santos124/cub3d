@@ -12,6 +12,8 @@
 
 #ifndef SO_LONG_H
 # define SCALE 16
+# define HEIGHT 600
+# define WIDTH 800
 # define SO_LONG_H
 # include	<stdio.h>
 # include	<stdlib.h>
@@ -35,17 +37,11 @@ typedef struct s_draw {
 	int		end;
 }				t_draw;
 
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		l_len;
-	int		end;
-
 typedef struct	s_plr //структура для игрока и луча
 {
 	float		x;
 	float		y;
-	float		dir;
+	float		angle;
 	float		start;
 	float		end;
 }				  t_plr;

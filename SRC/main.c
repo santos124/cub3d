@@ -74,7 +74,9 @@ static t_game	*init_mem(char **av)
 	game->draw = malloc(sizeof(t_draw));
 	if (!game->draw)
 		game_close(3, game);
-	*game->t_draw = (t_draw){0};
+	*game->draw = (t_draw){0};
+	
+
 	return (game);
 }
 
@@ -92,18 +94,28 @@ int	main(int ac, char **av)
 {
 	t_game	*game;
 
+	
 	if (ac != 2)
 		game_close(6, NULL);
+	
+		
 	game = init_mem(av);
+	printf("PRIVET\n");
 	read_map(game, av[1]);
 	print_map(game);
 	game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, 1440, 900,
-			"so_long");
+	game->draw->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+
+	game->draw->addr = mlx_get_data_addr(game->draw->img, &game->draw->bpp, &game->draw->l_len,
+								&game->draw->end);
+	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "so_long");
+	
 	init_imgs(game);
 	mlx_hook(game->win, 2, 1L << 0, key, game);
 	mlx_hook(game->win, 17, 1L << 2, button, game);
 	mlx_loop_hook(game->mlx, render, game);
+	
 	mlx_loop(game->mlx);
 	return (0);
 }
+

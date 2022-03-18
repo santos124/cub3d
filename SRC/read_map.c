@@ -34,7 +34,6 @@ static void	pers_find(t_game *game)
 	}
 	game->plr->x = game->p_x;
 	game->plr->y = game->p_y;
-	printf("window[%f][%f]\n", game->plr->x, game->plr->y);
 }
 
 static void	valid_map_continue(t_game *game)
