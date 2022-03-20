@@ -43,19 +43,32 @@ static void	init_imgs(t_game *game)
 	if (game->north_wall->addr == NULL)
 		game_close(1, game);
 
-	//остальыне также взять addr и проверку на маллок
-	game->west_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/west.xpm",
-			&game->west_wall->w, &game->west_wall->h);
-	if (game->west_wall->img == NULL)
-		game_close(1, game);
 	game->south_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/south.xpm",
 			&game->south_wall->w, &game->south_wall->h);
 	if (game->south_wall->img == NULL)
 		game_close(1, game);
+	game->south_wall->addr = mlx_get_data_addr(game->south_wall->img, &game->south_wall->bpp, &game->south_wall->l_len, &game->south_wall->end);
+	if (game->south_wall->addr == NULL)
+		game_close(1, game);
+
+	game->west_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/west.xpm",
+			&game->west_wall->w, &game->west_wall->h);
+	if (game->west_wall->img == NULL)
+		game_close(1, game);
+	game->west_wall->addr = mlx_get_data_addr(game->west_wall->img, &game->west_wall->bpp, &game->west_wall->l_len, &game->west_wall->end);
+	if (game->west_wall->addr == NULL)
+		game_close(1, game);
+
 	game->east_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/east.xpm",
 			&game->east_wall->w, &game->east_wall->h);
 	if (game->east_wall->img == NULL)
 		game_close(1, game);
+	game->east_wall->addr = mlx_get_data_addr(game->east_wall->img, &game->east_wall->bpp, &game->east_wall->l_len, &game->east_wall->end);
+	if (game->east_wall->addr == NULL)
+		game_close(1, game);
+
+
+
 	
 }
 

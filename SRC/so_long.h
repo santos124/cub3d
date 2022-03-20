@@ -67,7 +67,7 @@ typedef struct s_game {
 	int		pers_cnt;//удалить
 	int		did_move;//удалить
 	int		eat_food;//удалить
-	float	side_cub;
+	t_img	*side_img;
 	int		p_x;
 	int		p_y;
 	int		h;

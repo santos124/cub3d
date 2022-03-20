@@ -32,8 +32,8 @@ static void	pers_find(t_game *game)
 		}
 		y++;
 	}
-	game->plr->x = game->p_x;
-	game->plr->y = game->p_y;
+	game->plr->x = game->p_x + 0.5;
+	game->plr->y = game->p_y + 0.5;
 }
 
 static void	valid_map_continue(t_game *game)
