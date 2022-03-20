@@ -47,7 +47,8 @@ static void	put_pixel(t_img *draw, int x, int y, int color)
 
 // }
 
-static void ft_draw_ray(t_game *game, int x, float range, float angle)
+static void ft_draw_ray(t_game *game, int x, float range, float angle) //
+// range расстояние до стены
 {
 	int y;
 	int	h = HEIGHT / (range * cosf(angle)); //пиксели по лучу
@@ -57,7 +58,7 @@ static void ft_draw_ray(t_game *game, int x, float range, float angle)
 	while (y < HEIGHT)
 	{//get_pixel(game->north_wall, game->x_side * game->north_wall->w, y)
 		if (y > (HEIGHT - h) / 2 && y < HEIGHT - ((HEIGHT - h) / 2))
-			put_pixel(game->draw, x, y, 0x00FF0000 / range);
+			put_pixel(game->draw, x, y, 0x00FF0000);
 		else if (y < HEIGHT / 2)
 			put_pixel(game->draw, x, y, 0x0087CEEB);
 		else
