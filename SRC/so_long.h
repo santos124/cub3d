@@ -47,11 +47,11 @@ typedef struct s_game {
 	void	*mlx;
 	void	*win;
 	t_img	*draw;
-	t_img	*space;//
-	t_img	*wall;//
-	t_img	*food;//
-	t_img	*exit;//
-	t_img	*pers;//
+	t_img	*space;// удалить
+	t_img	*wall;//удалить
+	t_img	*food;//удалить
+	t_img	*exit;//удалить
+	t_img	*pers;//удалить
 	t_plr	*plr;
 	t_img	*north_wall;
 	t_img	*west_wall;
@@ -61,12 +61,12 @@ typedef struct s_game {
 	float	fov;
 	char	*map_name;
 	char	**map;
-	int		move_cnt;//
-	int		food_cnt;//
-	int		exit_cnt;//
-	int		pers_cnt;//
-	int		did_move;//
-	int		eat_food;//
+	int		move_cnt;//удалить
+	int		food_cnt;//удалить
+	int		exit_cnt;//удалить
+	int		pers_cnt;//удалить
+	int		did_move;//удалить
+	int		eat_food;//удалить
 	float	side_cub;
 	int		p_x;
 	int		p_y;
