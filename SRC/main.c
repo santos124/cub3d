@@ -34,22 +34,27 @@ static void	init_imgs(t_game *game)
 			&game->exit->w, &game->exit->h);
 	if (game->exit->img == NULL)
 		game_close(1, game);
-	
+	//t_img выше которые, все удалить
 	game->north_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/north.xpm",
 			&game->north_wall->w, &game->north_wall->h);
-	if (game->north_wall == NULL)
+	if (game->north_wall->img == NULL)
 		game_close(1, game);
+	game->north_wall->addr = mlx_get_data_addr(game->north_wall->img, &game->north_wall->bpp, &game->north_wall->l_len, &game->north_wall->end);
+	if (game->north_wall->addr == NULL)
+		game_close(1, game);
+
+	//остальыне также взять addr и проверку на маллок
 	game->west_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/west.xpm",
 			&game->west_wall->w, &game->west_wall->h);
-	if (game->west_wall == NULL)
+	if (game->west_wall->img == NULL)
 		game_close(1, game);
 	game->south_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/south.xpm",
 			&game->south_wall->w, &game->south_wall->h);
-	if (game->south_wall == NULL)
+	if (game->south_wall->img == NULL)
 		game_close(1, game);
 	game->east_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/east.xpm",
 			&game->east_wall->w, &game->east_wall->h);
-	if (game->east_wall == NULL)
+	if (game->east_wall->img == NULL)
 		game_close(1, game);
 	
 }

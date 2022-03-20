@@ -40,6 +40,7 @@ typedef struct	s_plr //структура для игрока и луча
 	float		angle;
 	float		start;
 	float		end;
+
 }				  t_plr;
 
 typedef struct s_game {
@@ -56,6 +57,7 @@ typedef struct s_game {
 	t_img	*west_wall;
 	t_img	*south_wall;
 	t_img	*east_wall;
+	float		x_side;
 	float	fov;
 	char	*map_name;
 	char	**map;
@@ -65,6 +67,7 @@ typedef struct s_game {
 	int		pers_cnt;
 	int		did_move;
 	int		eat_food;
+	float	side_cub;
 	int		p_x;
 	int		p_y;
 	int		h;

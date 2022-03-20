@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-static void	my_pixel_put(t_img *draw, int x, int y, int color)
+static void	put_pixel(t_img *draw, int x, int y, int color)
 {
 	char	*dst;
 	if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
@@ -22,6 +22,11 @@ static void	my_pixel_put(t_img *draw, int x, int y, int color)
 	}
 
 }
+
+// static int get_pixel(t_img *img, int x, int y)
+// {
+// 	return (*(img->addr + (y * img->l_len + x * (img->bpp / 8))));
+// }
 
 // static void ft_draw_ray(t_game *game, int x, float range)
 // {
@@ -47,22 +52,48 @@ static void ft_draw_ray(t_game *game, int x, float range, float angle)
 	int y;
 	int	h = HEIGHT / (range * cosf(angle)); //пиксели по лучу
 	y = 0; //старт координата текущего пикселя
-
+	printf(" PRIVET %d, %d, %f\n", game->north_wall->h, game->north_wall->w, game->x_side);
 
 	while (y < HEIGHT)
-	{
+	{//get_pixel(game->north_wall, game->x_side * game->north_wall->w, y)
 		if (y > (HEIGHT - h) / 2 && y < HEIGHT - ((HEIGHT - h) / 2))
-			my_pixel_put(game->draw, x, y, 0x0000FF00 / range);
+			put_pixel(game->draw, x, y, 0x00FF0000 / range);
 		else if (y < HEIGHT / 2)
-			my_pixel_put(game->draw, x, y, 0x0087CEEB);
+			put_pixel(game->draw, x, y, 0x0087CEEB);
 		else
-			my_pixel_put(game->draw, x, y, 0x00FA8072);
+			put_pixel(game->draw, x, y, 0x00FA8072);
 		y++;
 	}
 
 }
 
-void	ft_cast_rays(t_game *game)
+// static int get_side_cub(t_game *game, t_plr *ray)
+// {
+// 	printf("%f %f, %d\n", ray->x, ray->y, game->map[(int)(ray->y + 1)][(int)(ray->x + 1)]);
+// 	if (game->map[(int)(ray->y)][(int)(ray->x + 1)] != '1')
+// 	{
+// 		game->x_side = ((float)(int)ray->y + 1.0000) - ray->y;
+// 		return 1;
+// 	}
+// 	if (game->map[(int)(ray->y + 1)][(int)(ray->x)] != '1')
+// 	{
+// 		game->x_side = ray->x - (float)(int)ray->x;
+// 		return 2;
+// 	}
+// 	if (game->map[(int)(ray->y)][(int)(ray->x - 1)] != '1')
+// 	{
+// 		game->x_side = ray->y - (float)(int)ray->y;
+// 		return 3;
+// 	}
+// 	if (game->map[(int)(ray->y - 1)][(int)(ray->x)] != '1')
+// 	{
+// 		game->x_side = ((float)(int)ray->x + 1.0000) - ray->x;
+// 		return 4;
+// 	}
+// 	return 0;
+// }
+
+static void	ft_cast_rays(t_game *game)
 {
 	t_plr	ray = *game->plr; // задаем координаты и направление луча равные координатам игрока
 	ray.start = ray.angle - game->fov / 2; // начало веера лучей
@@ -78,17 +109,10 @@ void	ft_cast_rays(t_game *game)
 		{
 			ray.x += cos(ray.start) / 100.0f;
 			ray.y += sin(ray.start) / 100.0f;
-			// printf("XYU 2 \n");
 		}
+		// game->side_cub = get_side_cub(game, &ray);
 
 		float range = sqrt(powf(ray.x - game->plr->x, 2.0) + powf(ray.y - game->plr->y, 2.0));
-		// printf("243 XYU  %f|%f\n", range, game->plr->angle );
-
-		// printf("XYU [%f][%f]=|%c|, range=%f| angle=%f| powf=%f, sqrtf=%f, rand1=%f, rand2=%f\n", ray.y, ray.x, \
-		// game->map[(int)ray.y][(int)ray.x], range, ray.start, \
-		// powf(ray.x - game->plr->x, 2.0), \
-		// sqrtf(powf(ray.x - game->plr->x, 2.0) + powf(ray.y - game->plr->y, 2.00)), \
-		// powf(ray.x - game->plr->x, 2.0), powf(ray.y - game->plr->y, 2.00));
 	
 		ft_draw_ray(game, d_x, range, game->fov - ray.start);
 		d_x++;
