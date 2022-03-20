@@ -34,6 +34,24 @@ static void	init_imgs(t_game *game)
 			&game->exit->w, &game->exit->h);
 	if (game->exit->img == NULL)
 		game_close(1, game);
+	
+	game->north_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/north.xpm",
+			&game->north_wall->w, &game->north_wall->h);
+	if (game->north_wall == NULL)
+		game_close(1, game);
+	game->west_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/west.xpm",
+			&game->west_wall->w, &game->west_wall->h);
+	if (game->west_wall == NULL)
+		game_close(1, game);
+	game->south_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/south.xpm",
+			&game->south_wall->w, &game->south_wall->h);
+	if (game->south_wall == NULL)
+		game_close(1, game);
+	game->east_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/east.xpm",
+			&game->east_wall->w, &game->east_wall->h);
+	if (game->east_wall == NULL)
+		game_close(1, game);
+	
 }
 
 static void	init_game(t_game *game)
@@ -71,10 +89,24 @@ static t_game	*init_mem(char **av)
 	if (!game->plr)
 		game_close(3, game);
 	*game->plr = (t_plr){0};
-	game->draw = malloc(sizeof(t_draw));
+	game->draw = malloc(sizeof(t_img));
 	if (!game->draw)
 		game_close(3, game);
-	*game->draw = (t_draw){0};
+	*game->draw = (t_img){0};
+
+	game->north_wall = malloc(sizeof(t_img));
+	if (!game->north_wall)
+		game_close(3, game);
+	game->west_wall = malloc(sizeof(t_img));
+	if (!game->west_wall)
+		game_close(3, game);
+	game->south_wall = malloc(sizeof(t_img));
+	if (!game->south_wall)
+		game_close(3, game);
+	game->east_wall = malloc(sizeof(t_img));
+	if (!game->east_wall)
+		game_close(3, game);
+	
 	
 
 	return (game);

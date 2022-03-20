@@ -25,17 +25,13 @@
 
 typedef struct s_img {
 	void	*img;
-	int		w;
-	int		h;
-}				t_img;
-
-typedef struct s_draw {
-	void	*img;
 	char	*addr;
 	int		bpp;
 	int		l_len;
 	int		end;
-}				t_draw;
+	int		w;
+	int		h;
+}				t_img;
 
 typedef struct	s_plr //структура для игрока и луча
 {
@@ -49,13 +45,18 @@ typedef struct	s_plr //структура для игрока и луча
 typedef struct s_game {
 	void	*mlx;
 	void	*win;
-	t_draw	*draw;
+	t_img	*draw;
 	t_img	*space;
 	t_img	*wall;
 	t_img	*food;
 	t_img	*exit;
 	t_img	*pers;
 	t_plr	*plr;
+	t_img	*north_wall;
+	t_img	*west_wall;
+	t_img	*south_wall;
+	t_img	*east_wall;
+	float	fov;
 	char	*map_name;
 	char	**map;
 	int		move_cnt;
