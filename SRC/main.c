@@ -14,26 +14,26 @@
 
 static void	init_imgs(t_game *game)
 {
-	game->pers->img = mlx_xpm_file_to_image(game->mlx, "imgs/persM.xpm",
-			&game->pers->w, &game->pers->h);
-	if (game->pers->img == NULL)
-		game_close(1, game);
-	game->space->img = mlx_xpm_file_to_image(game->mlx, "imgs/spaceM.xpm",
-			&game->space->w, &game->space->h);
-	if (game->space->img == NULL)
-		game_close(1, game);
-	game->wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/wallM.xpm",
-			&game->wall->w, &game->wall->h);
-	if (game->wall->img == NULL)
-		game_close(1, game);
-	game->food->img = mlx_xpm_file_to_image(game->mlx, "imgs/foodM.xpm",
-			&game->food->w, &game->food->h);
-	if (game->wall->img == NULL)
-		game_close(1, game);
-	game->exit->img = mlx_xpm_file_to_image(game->mlx, "imgs/exitM.xpm",
-			&game->exit->w, &game->exit->h);
-	if (game->exit->img == NULL)
-		game_close(1, game);
+//	game->pers->img = mlx_xpm_file_to_image(game->mlx, "imgs/persM.xpm",
+//			&game->pers->w, &game->pers->h);
+//	if (game->pers->img == NULL)
+//		game_close(1, game);
+//	game->space->img = mlx_xpm_file_to_image(game->mlx, "imgs/spaceM.xpm",
+//			&game->space->w, &game->space->h);
+//	if (game->space->img == NULL)
+//		game_close(1, game);
+//	game->wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/wallM.xpm",
+//			&game->wall->w, &game->wall->h);
+//	if (game->wall->img == NULL)
+//		game_close(1, game);
+//	game->food->img = mlx_xpm_file_to_image(game->mlx, "imgs/foodM.xpm",
+//			&game->food->w, &game->food->h);
+//	if (game->wall->img == NULL)
+//		game_close(1, game);
+//	game->exit->img = mlx_xpm_file_to_image(game->mlx, "imgs/exitM.xpm",
+//			&game->exit->w, &game->exit->h);
+//	if (game->exit->img == NULL)
+//		game_close(1, game);
 	//t_img выше которые, все удалить
 	game->north_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/north.xpm",
 			&game->north_wall->w, &game->north_wall->h);
@@ -85,21 +85,21 @@ static t_game	*init_mem(char **av)
 	if (!game)
 		game_close(3, game);
 	init_game(game);
-	game->space = malloc(sizeof(t_img));
-	if (!game->space)
-		game_close(3, game);
-	game->wall = malloc(sizeof(t_img));
-	if (!game->wall)
-		game_close(3, game);
-	game->food = malloc(sizeof(t_img));
-	if (!game->food)
-		game_close(3, game);
-	game->exit = malloc(sizeof(t_img));
-	if (!game->exit)
-		game_close(3, game);
-	game->pers = malloc(sizeof(t_img));
-	if (!game->pers)
-		game_close(3, game);
+//	game->space = malloc(sizeof(t_img));
+//	if (!game->space)
+//		game_close(3, game);
+//	game->wall = malloc(sizeof(t_img));
+//	if (!game->wall)
+//		game_close(3, game);
+//	game->food = malloc(sizeof(t_img));
+//	if (!game->food)
+//		game_close(3, game);
+//	game->exit = malloc(sizeof(t_img));
+//	if (!game->exit)
+//		game_close(3, game);
+//	game->pers = malloc(sizeof(t_img));
+//	if (!game->pers)
+//		game_close(3, game);
 	game->map_name = ft_strdup(av[1]);
 	if (!game->map_name)
 		game_close(3, game);
