@@ -25,21 +25,21 @@
 
 typedef struct s_img {
 	void	*img;
-	char	*addr;
-	int		bpp;
-	int		l_len;
-	int		end;
-	int		w;
-	int		h;
+	char	*addr; // указатель на пиксели в одномерном массиве
+	int		bpp; // бит в пикселе
+	int		l_len; // длина линии
+	int		end; // эндиан
+	int		w; // ширина кол-во пикселей
+	int		h; // высота кол-во пикселей
 }				t_img;
 
 typedef struct	s_plr //структура для игрока и луча
 {
-	float		x;
-	float		y;
-	float		angle;
-	float		start;
-	float		end;
+	float		x; // х позиция
+	float		y; // у позиция
+	float		angle; // направление, куда смотрит игрок в рад вид сверху
+	float		start; // левый диапазон направления в рад вид сверху
+	float		end; // правый диапазон направления в рад вид сверху
 
 }				  t_plr;
 
@@ -52,13 +52,14 @@ typedef struct s_game {
 //	t_img	*food;//удалить
 //	t_img	*exit;//удалить
 //	t_img	*pers;//удалить
-	t_plr	*plr;
+	t_plr	*plr; // игрок
 	t_img	*north_wall;
 	t_img	*west_wall;
 	t_img	*south_wall;
 	t_img	*east_wall;
-	float		x_side;
-	float	fov;
+	float	x_side; // отношение отрезка от левой грани куба до точки
+	// пересечения с лучем к грани куба
+	float	fov; // угол обзора
 	char	*map_name;
 	char	**map;
 //	int		move_cnt;//удалить
@@ -67,12 +68,12 @@ typedef struct s_game {
 //	int		pers_cnt;//удалить
 //	int		did_move;//удалить
 //	int		eat_food;//удалить
-	t_img	*side_img;
-	int		p_x;
-	int		p_y;
-	int		h;
-	int		w;
-	int		need_clear;	
+	t_img	*side_img; // куда луч смотрит, один из wall
+	int		p_x; // стартовые  позиции
+	int		p_y; // стартовые позиции
+	int		h; // высота экрана не нужна
+	int		w; // ширина экрана не нужна
+	// int		need_clear;	// флаг очистки
 }				t_game;
 
 
