@@ -140,13 +140,13 @@ void	free_all(char **all)
 	free(all);
 }
 
-int	parse_text_file(t_all *all, char *filename) // add structures parse, tex,
+int	parse_tex(t_all *all, char *file) // add structures parse, tex,
 // all in header
 {
 	int fd;
 	char *buf;
 
-	fd = open(filename, O_READONLY);
+	fd = open(file, O_READONLY);
 	if (fd == -1)
 		ft_error("Error: mapfile not detected!");
 	ft_init_struct(); // init structure parse
@@ -159,4 +159,24 @@ int	parse_text_file(t_all *all, char *filename) // add structures parse, tex,
 
 
 	return (   );
+}
+
+
+int		parse_map(t_all *all, int fd)
+{
+	char	*buf;
+
+	while(get_next_line(fd, &buf))
+	{
+		if(!buf[0])
+			continue ;
+		all->map[i] = ft_strdup(buf);
+		if (!all->map[i])
+			ft_error("Error: malloc error!");
+		i++;
+		free(buf);
+	}
+	free(buf);
+	close(fd);
+	return (0);
 }
