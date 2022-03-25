@@ -14,7 +14,7 @@ typedef struct	s_direction
 
 typedef struct	s_bot_ceil
 {
-	char	*path;
+	int	color[3];
 } t_bot;
 
 typedef	struct	s_tex
@@ -62,8 +62,7 @@ int	check_valid_char(char **map) // map
 			if (map[i][j] != 'N' && map[i][j] != 'S' && map[i][j] != 'W' &&
 				map[i][j] != 'E' && map[i][j] != '1' && map[i][j] != '0' &&
 				map[i][j] != ' ')
-				return (ft_error("Error: invalid characters detected!")); //
-				// ft_error!!!!!
+				return (ft_error("Error: invalid characters detected!"));
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W' ||
 				map[i][j] == 'E')
 				dup++;
@@ -88,32 +87,40 @@ void	ft_init_struct(             )
 
 int		parse_tex_and_colors(char *buf, t_tex *tex, t_parse *parse)
 {
+	int	i;
+
+	i = 0;
 	if (parse->tex[0] == 1 && parse->tex[1] == 1 && parse->tex[2] == 1 &&
 	parse->tex[3] == 1 && parse->tex[4] == 1 && parse->tex[5] == 1)// check
 	// massiv that only one  n s e w f c checked
 		return (1);
-	if (!strncmp("NO ", buf, 3))
-		return (get_texture(0, buf, tex, parse)); // check texture file errors
+	while (buf[i] == ' ')
+		i++;
+	if (!strncmp("NO ", buf + i, 3))
+		return (get_texture(0, buf + i + 3, tex, parse)); // check texture file
+		// errors
 		// handling ft_error("Error: some errors in textures and files in
 		// mapfile!");
-	if (!strncmp("SO ", buf, 3))
-		return (get_texture(1, buf, tex, parse)); // check texture file errors
+	if (!strncmp("SO ", buf + i, 3))
+		return (get_texture(1, buf + i + 3, tex, parse)); // check texture file
+		// errors
 		// handling ft_error("Error: some errors in textures and files in
 		// mapfile!");
-	if (!strncmp("WE ", buf, 3))
-		return (get_texture(2, buf, tex, parse)); // check texture file errors
+	if (!strncmp("WE ", buf + i, 3))
+		return (get_texture(2, buf + i + 3, tex, parse)); // check texture file errors
 		// handling ft_error("Error: some errors in textures and files in
 		// mapfile!");
-	if (!strncmp("EA ", buf, 3))
-		return (get_texture(3, buf, tex, parse)); // check texture file errors
+	if (!strncmp("EA ", buf + i, 3))
+		return (get_texture(3, buf + i + 3, tex, parse)); // check texture file errors
 		// handling ft_error("Error: some errors in textures and files in
 		// mapfile!");
-	if (!strncmp("F ", buf, 2))
-		return (get_color(0, buf, tex, parse)); // check texture file errors
+	if (!strncmp("F ", buf + i, 2))
+		return (get_color(0, buf + i + 2, tex, parse)); // check texture file
+		// errors
 		// handling ft_error("Error: some errors in textures and files in
 		// mapfile!");
-	if (!strncmp("C ", buf, 2))
-		return (get_color(1, buf, tex, parse)); // check texture file errors
+	if (!strncmp("C ", buf + i, 2))
+		return (get_color(1, buf + i + 2, tex, parse)); // check texture file errors
 		// handling ft_error("Error: some errors in textures and files in
 		// mapfile!");
 	return (0);
@@ -126,14 +133,26 @@ int		get_texture(int type, char *buf, t_tex *tex, t_parse *parse)
 	int		i;
 
 	i = 0;
-	while (buf[i] != ' ')
+	while (buf[i] == ' ')
 		i++;
-	i++;
 	tex->direction[type]->path = ft_strdup(buf + i);
 	if (!tex->direction[type]->path)
 		ft_error("Error: malloc error!");
 	 parse->tex[type] = 1; //flag
 	 return (0);
+}
+
+void	free_all(char **all)
+{
+	int	i;
+
+	i = 0;
+	while (all[i])
+	{
+		free(all[i]);
+		i++;
+	}
+	free(all);
 }
 
 int		get_color(int type, char *buf, t_tex *tex, t_parse *p)
@@ -146,13 +165,12 @@ int		get_color(int type, char *buf, t_tex *tex, t_parse *p)
 
 	i = 0;
 	k = 0;
-	while (buf[i] != ' ')
+	while (buf[i] == ' ')
 		i++;
-	i++;
 	j = i;
-	while (!split[j])
+	while (!buf[j])
 	{
-		if (split[j] == ',')
+		if (buf[j] == ',')
 			k++;
 		j++;
 	}
@@ -172,19 +190,6 @@ int		get_color(int type, char *buf, t_tex *tex, t_parse *p)
 	return (0);
 }
 
-void	free_all(char **all)
-{
-	int	i;
-
-	i = 0;
-	while (all[i])
-	{
-		free(all[i]);
-		i++;
-	}
-	free(all);
-}
-
 int	parse_tex(t_all *all, char *file) // add structures parse, tex,
 // all in header
 {
@@ -200,9 +205,15 @@ int	parse_tex(t_all *all, char *file) // add structures parse, tex,
 		// check_read_texcol check textures and colors flags in structure parse
 		free(buf);
 	free(buf);
-	while  // parse map
 
 
+	all->map = get_map(all, fd); //
+	if (!all->map)
+		ft_error("Error: can't read map!");
+	check_map(all); //
+	check_walls(all); //
+	parse_player(all);
+	open_tex(all);
 	return (   );
 }
 
@@ -223,5 +234,5 @@ int		parse_map(t_all *all, int fd)
 	}
 	free(buf);
 	close(fd);
-	return (0);
+	return (    );
 }
