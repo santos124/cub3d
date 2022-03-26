@@ -229,6 +229,7 @@ int		parse_map(t_all *all, int fd)
 		all->map[i] = ft_strdup(buf);
 		if (!all->map[i])
 			ft_error("Error: malloc error!");
+		all->parse->map_size =
 		i++;
 		free(buf);
 	}
@@ -236,3 +237,7 @@ int		parse_map(t_all *all, int fd)
 	close(fd);
 	return (    );
 }
+
+
+
+realloc(map, i);
