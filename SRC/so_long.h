@@ -11,9 +11,11 @@
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
-# define SCALE 16
-# define HEIGHT 600
-# define WIDTH 800
+# define HEIGHT 1080
+# define WIDTH 1080
+# define FOOT	0.3
+# define FOV 90
+# define ROTATE_ANGLE 0.05
 # define SO_LONG_H
 # include	<stdio.h>
 # include	<stdlib.h>
@@ -27,6 +29,7 @@ typedef struct s_img {
 	void	*img;
 	char	*addr; // указатель на пиксели в одномерном массиве
 	int		bpp; // бит в пикселе
+	// int		bpp_del;
 	int		l_len; // длина линии
 	int		end; // эндиан
 	int		w; // ширина кол-во пикселей
@@ -43,15 +46,21 @@ typedef struct	s_plr //структура для игрока и луча
 
 }				  t_plr;
 
+typedef struct	s_mouse //структура для игрока и луча
+{
+	
+	int x_last;
+	int x_now;
+	int y_last;
+	int y_now;
+}				  t_nouse;
+
 typedef struct s_game {
 	void	*mlx;
 	void	*win;
 	t_img	*draw;
-//	t_img	*space;// удалить
-//	t_img	*wall;//удалить
-//	t_img	*food;//удалить
-//	t_img	*exit;//удалить
-//	t_img	*pers;//удалить
+	t_img	*minimap;
+
 	t_plr	*plr; // игрок
 	t_img	*north_wall;
 	t_img	*west_wall;
@@ -62,17 +71,20 @@ typedef struct s_game {
 	float	fov; // угол обзора
 	char	*map_name;
 	char	**map;
-//	int		move_cnt;//удалить
-//	int		food_cnt;//удалить
-//	int		exit_cnt;//удалить
-//	int		pers_cnt;//удалить
-//	int		did_move;//удалить
-//	int		eat_food;//удалить
+	int		k_map;
+
+	int		x_mouse_now;
+	int		y_mouse_now;
+	int		x_mouse_before;
+	int		y_mouse_before;
+	int		toogle_mouse;
+
 	t_img	*side_img; // куда луч смотрит, один из wall
 	int		p_x; // стартовые  позиции
 	int		p_y; // стартовые позиции
 	int		h; // высота экрана не нужна
 	int		w; // ширина экрана не нужна
+	float	cos;
 	// int		need_clear;	// флаг очистки
 }				t_game;
 
@@ -81,7 +93,16 @@ void	game_close(int err, t_game *game);
 void	read_map(t_game *game, char *map_name);
 int		key(int keycode, t_game *game);
 int		button(t_game *game);
+int		mouse_toogle(int keycode, int x, int y, t_game *game);
+int		mouse_move(int x, int y, t_game *game);
+void	dir_up(t_game *game);
+void	dir_down(t_game *game);
+void	dir_left(t_game *game);
+void	dir_right(t_game *game);
+void	rot_left(t_game *game);
+void	rot_right(t_game *game);
 void	liberator(t_game	*game);
 int		render(t_game *game);
+void	put_pixel(t_img *draw, int x, int y, unsigned color);
 
 #endif

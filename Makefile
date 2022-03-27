@@ -14,7 +14,9 @@ NAME				= cub3d
 HEADER		 		= SRC/so_long.h
 HEADER_B		 	= SRC_B/so_long_bonus.h
 SRCS				= SRC/main.c\
-					SRC/moves.c\
+					SRC/hooks.c\
+					SRC/moves_dir.c\
+					SRC/moves_left_right.c\
 					SRC/errors.c\
 					SRC/read_map.c\
 					SRC/free.c\

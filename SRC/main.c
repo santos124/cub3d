@@ -112,6 +112,12 @@ static t_game	*init_mem(char **av)
 		game_close(3, game);
 	*game->draw = (t_img){0};
 
+	game->minimap = malloc(sizeof(t_img));
+	if (!game->minimap)
+		game_close(3, game);
+	*game->minimap = (t_img){0};
+
+
 	game->north_wall = malloc(sizeof(t_img));
 	if (!game->north_wall)
 		game_close(3, game);
@@ -150,7 +156,6 @@ int	main(int ac, char **av)
 	
 		
 	game = init_mem(av);
-	printf("PRIVET\n");
 	read_map(game, av[1]);
 	print_map(game);
 	game->mlx = mlx_init();
@@ -158,11 +163,25 @@ int	main(int ac, char **av)
 
 	game->draw->addr = mlx_get_data_addr(game->draw->img, &game->draw->bpp, &game->draw->l_len,
 								&game->draw->end);
+
+	game->k_map = HEIGHT / 70;
+
+	
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "so_long");
 	
 	init_imgs(game);
+	game->fov = FOV * M_PI / 180.0;
+	printf("game->fov%f\n", game->fov * 180 / M_PI);
+	game->plr->angle = M_PI * 3  / 2.0;
+	game->plr->x = game->p_x + 0.5;
+	game->plr->y = game->p_y + 0.5;
+	game->x_mouse_now = 0;
+	game->y_mouse_now = 0;
+	game->toogle_mouse = 0;
 	mlx_hook(game->win, 2, 1L << 0, key, game);
 	mlx_hook(game->win, 17, 1L << 2, button, game);
+	mlx_mouse_hook(game->win, mouse_toogle, game);
+	mlx_hook(game->win, 6, 1L << 2, mouse_move, game);
 	mlx_loop_hook(game->mlx, render, game);
 	
 	mlx_loop(game->mlx);
