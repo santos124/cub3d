@@ -171,7 +171,7 @@ int	main(int ac, char **av)
 	
 	init_imgs(game);
 	game->fov = FOV * M_PI / 180.0;
-	printf("game->fov%f\n", game->fov * 180 / M_PI);
+	// printf("game->fov%f\n", game->fov * 180 / M_PI);
 	game->plr->angle = M_PI * 3  / 2.0;
 	game->plr->x = game->p_x + 0.5;
 	game->plr->y = game->p_y + 0.5;
@@ -183,7 +183,6 @@ int	main(int ac, char **av)
 	mlx_mouse_hook(game->win, mouse_toogle, game);
 	mlx_hook(game->win, 6, 1L << 2, mouse_move, game);
 	mlx_loop_hook(game->mlx, render, game);
-	
 	mlx_loop(game->mlx);
 	return (0);
 }

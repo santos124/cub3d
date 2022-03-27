@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
-# define HEIGHT 1080
-# define WIDTH 1080
+# define HEIGHT 600
+# define WIDTH 800
 # define FOOT	0.3
 # define FOV 90
 # define ROTATE_ANGLE 0.05
@@ -38,11 +38,11 @@ typedef struct s_img {
 
 typedef struct	s_plr //структура для игрока и луча
 {
-	float		x; // х позиция
-	float		y; // у позиция
-	float		angle; // направление, куда смотрит игрок в рад вид сверху
-	float		start; // левый диапазон направления в рад вид сверху
-	float		end; // правый диапазон направления в рад вид сверху
+	long double		x; // х позиция
+	long double		y; // у позиция
+	long double		angle; // направление, куда смотрит игрок в рад вид сверху
+	long double		start; // левый диапазон направления в рад вид сверху
+	long double		end; // правый диапазон направления в рад вид сверху
 
 }				  t_plr;
 
@@ -66,9 +66,9 @@ typedef struct s_game {
 	t_img	*west_wall;
 	t_img	*south_wall;
 	t_img	*east_wall;
-	float	x_side; // отношение отрезка от левой грани куба до точки
+	long double	x_side; // отношение отрезка от левой грани куба до точки
 	// пересечения с лучем к грани куба
-	float	fov; // угол обзора
+	long double	fov; // угол обзора
 	char	*map_name;
 	char	**map;
 	int		k_map;
@@ -84,7 +84,7 @@ typedef struct s_game {
 	int		p_y; // стартовые позиции
 	int		h; // высота экрана не нужна
 	int		w; // ширина экрана не нужна
-	float	cos;
+	long double	cos;
 	// int		need_clear;	// флаг очистки
 }				t_game;
 

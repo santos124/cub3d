@@ -37,33 +37,33 @@ static t_img *get_side_cub(t_game *game, t_plr *ray)
 {
 	if (game->map[(int)(ray->y)][(int)(ray->x + 0.01)] != '1')
 	{
-		game->x_side = ((float)(int)ray->y + 1.0000) - ray->y;
+		game->x_side = ((long double)(int)ray->y + 1.0000) - ray->y;
 		return game->east_wall;
 	}
 	if (game->map[(int)(ray->y + 0.01)][(int)(ray->x)] != '1')
 	{
-		game->x_side = ray->x - (float)(int)ray->x;
+		game->x_side = ray->x - (long double)(int)ray->x;
 		return game->south_wall;
 	}
 	if (game->map[(int)(ray->y)][(int)(ray->x - 0.01)] != '1')
 	{
-		game->x_side = ray->y - (float)(int)ray->y;
+		game->x_side = ray->y - (long double)(int)ray->y;
 		return game->west_wall;
 	}
 	if (game->map[(int)(ray->y - 0.01)][(int)(ray->x)] != '1')
 	{
-		game->x_side = ((float)(int)ray->x + 1.0000) - ray->x;
+		game->x_side = ((long double)(int)ray->x + 1.0000) - ray->x;
 		return game->north_wall;
 	}
 	game->x_side = 0;
 	return game->east_wall;
 }
 
-static void ft_draw_ray(t_game *game, int x, float range, float angle)
+static void ft_draw_ray(t_game *game, int x, long double range, long double angle)
 {
 	int y;
 	(void)angle;
-	int	h = HEIGHT / (range  * cos(angle * 1) ); //высота в пикселях столбца стены
+	long double	h = (long double)HEIGHT / (range * 1 * cosf(angle) ); //высота в пикселях столбца стены
 	y = 0; //старт координата текущего пикселя
 
 	while (y < HEIGHT)
@@ -84,53 +84,16 @@ static void ft_draw_ray(t_game *game, int x, float range, float angle)
 }
 
 
-static void	ft_cast_rays(t_game *game)
-{
-	t_plr	ray = *game->plr;// задаем координаты и направление луча равные координатам игрока
-	ray.start = ray.angle - game->fov / 2.00;// начало веера лучей
-	ray.end = ray.angle + game->fov / 2.00;// край веера лучей
-	int d_x = 0;
-	float cosinus;
-	float sinus;
-	while (d_x < WIDTH)
-	{
-		ray.x = game->plr->x;// каждый раз возвращаемся в точку начала
-		ray.y = game->plr->y;
-		cosinus = cos(ray.start);
-		sinus = sin(ray.start);
-		while (game->map[(int)(ray.y)][(int)(ray.x)] != '1')//пока не воткну луч в стену
-		{
-			ray.x += cosinus / 100.0;
-			ray.y += sinus / 100.0;
-			put_pixel(game->minimap, (ray.x) * game->k_map, (ray.y) * game->k_map, 0x5500EE00);
-		}
-		game->side_img = get_side_cub(game, &ray);//получаю указатель на одну из структур изображений
-		float range = sqrtf(powf(ray.x - game->plr->x, 2.0) + powf(ray.y - game->plr->y, 2.0)); //длина луча грязная
-		ft_draw_ray(game, d_x, range,  game->plr->angle - ray.start); //рисовать столбец полностью с полом и потолком
-		d_x++;//переход на след столбец камеры
-		ray.start += game->fov / WIDTH; //переход луча на след угол
-		
-
-	}
-}
-
 // static void	ft_cast_rays(t_game *game)
 // {
 // 	t_plr	ray = *game->plr;// задаем координаты и направление луча равные координатам игрока
 // 	ray.start = ray.angle - game->fov / 2.00;// начало веера лучей
 // 	ray.end = ray.angle + game->fov / 2.00;// край веера лучей
 // 	int d_x = 0;
-// 	float cosinus;
-// 	float sinus;
-// 	float accel = game->fov / ((WIDTH / 2) * (WIDTH / 2));
-// 	// float speed = 0.00001;
-// 	// while (ray.start <= ray.end)//пока угол луча(текущий угол луча относительно ОХ) не достигнет максимального угла дуги
+// 	long double cosinus;
+// 	long double sinus;
 // 	while (d_x < WIDTH)
 // 	{
-// 		if (ray.start <= ray.angle)
-// 			ray.start += accel * d_x;
-// 		else
-// 			ray.start += accel * (WIDTH - d_x);
 // 		ray.x = game->plr->x;// каждый раз возвращаемся в точку начала
 // 		ray.y = game->plr->y;
 // 		cosinus = cos(ray.start);
@@ -142,14 +105,52 @@ static void	ft_cast_rays(t_game *game)
 // 			put_pixel(game->minimap, (ray.x) * game->k_map, (ray.y) * game->k_map, 0x5500EE00);
 // 		}
 // 		game->side_img = get_side_cub(game, &ray);//получаю указатель на одну из структур изображений
-// 		float range = sqrtf(powf(ray.x - game->plr->x, 2.0) + powf(ray.y - game->plr->y, 2.0)); //длина луча грязная
+// 		long double range = sqrtf(powf(ray.x - game->plr->x, 2.0) + powf(ray.y - game->plr->y, 2.0)); //длина луча грязная
 // 		ft_draw_ray(game, d_x, range,  game->plr->angle - ray.start); //рисовать столбец полностью с полом и потолком
 // 		d_x++;//переход на след столбец камеры
-// 		// ray.start += game->fov / WIDTH; //переход луча на след угол
+// 		ray.start += game->fov / WIDTH; //переход луча на след угол
 		
 
 // 	}
 // }
+
+static void	ft_cast_rays(t_game *game)
+{
+	t_plr	ray = *game->plr;// задаем координаты и направление луча равные координатам игрока
+	ray.start = ray.angle - game->fov / 2.00;// начало веера лучей
+	ray.end = ray.angle + game->fov / 2.00;// край веера лучей
+	int d_x = 0;
+	long double cosinus;
+	long double sinus;
+	long double accel = 0.0000002;
+	long double speed = 0.0001;
+	// while (ray.start <= ray.end)//пока угол луча(текущий угол луча относительно ОХ) не достигнет максимального угла дуги
+	while (d_x < WIDTH)
+	{
+		if (ray.start <= ray.angle)
+			speed += accel;
+		else
+			speed -= accel;
+		ray.start += 15 * speed;
+		ray.x = game->plr->x;// каждый раз возвращаемся в точку начала
+		ray.y = game->plr->y;
+		cosinus = cos(ray.start);
+		sinus = sin(ray.start);
+		while (game->map[(int)(ray.y)][(int)(ray.x)] != '1')//пока не воткну луч в стену
+		{
+			ray.x += cosinus / 100.0;
+			ray.y += sinus / 100.0;
+			put_pixel(game->minimap, (ray.x) * game->k_map, (ray.y) * game->k_map, 0x5500EE00);
+		}
+		game->side_img = get_side_cub(game, &ray);//получаю указатель на одну из структур изображений
+		long double range = sqrtf(powf(ray.x - game->plr->x, 2.0) + powf(ray.y - game->plr->y, 2.0)); //длина луча грязная
+		ft_draw_ray(game, d_x, range,  game->plr->angle - ray.start); //рисовать столбец полностью с полом и потолком
+		d_x++;//переход на след столбец камеры
+		// ray.start += game->fov / WIDTH; //переход луча на след угол
+		
+
+	}
+}
 
 
 void put_men_map(t_game *game)
