@@ -1,52 +1,63 @@
 
 #include "so_long.h"
 
-//struct
-typedef struct s_parse
+
+typedef struct	s_parser
 {
-	int	tex[6];
-}	t_parse;
-
-typedef struct	s_direction
-{
-	char	*path;
-}	t_dir;
-
-typedef struct	s_bot_ceil
-{
-	int	color[3];
-} t_bot;
-
-typedef	struct	s_tex
-{
-	t_dir	*direction;
-	t_bot	*bot_ceil;
-
-}	t_tex;
-
-
-typedef	struct	s_ray
-{
-
-
-
-
-}	t_ray;
-
-typedef struct s_all
-{
-	t_parse	*parse;
 	char	**map;
-	t_tex	*tex;
-	t_ray	*ray;
+	int		color_bot[3];
+	int		color_ceil[3];
+	char	*path_direction[4];
+	int		tex_flag[6];
+}	t_parser; // заменяет t_all
 
 
-}	t_all;
+
+//
+//struct
+//typedef struct s_parse
+//{
+//	int	tex[6];
+//}	t_parse;
+//
+//typedef struct	s_direction
+//{
+//	char	*path;
+//}	t_dir;
+//
+//typedef struct	s_bot_ceil
+//{
+//	int	color[3];
+//} t_bot;
+//
+//typedef	struct	s_tex
+//{
+//	t_dir	*direction;
+//	t_bot	*bot_ceil;
+//
+//}	t_tex;
+//
+//
+//typedef	struct	s_ray
+//{
+//
+//
+//
+//
+//}	t_ray;
+//
+//typedef struct s_all
+//{
+//	t_parse	*parse;
+//	char	**map;
+//	t_tex	*tex;
+//
+//}	t_all;
+//
 
 
 
-
-int	check_valid_char(char **map) // map
+int	check_valid_char(char **map)
 {
 	int i;
 	int j;
