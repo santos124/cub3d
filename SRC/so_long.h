@@ -12,9 +12,9 @@
 
 #ifndef SO_LONG_H
 # define HEIGHT 600
-# define WIDTH 800
-# define FOOT	0.3
-# define FOV 90
+# define WIDTH 1000
+# define FOOT	0.1
+# define FOV 90.0
 # define ROTATE_ANGLE 0.05
 # define SO_LONG_H
 # include	<stdio.h>

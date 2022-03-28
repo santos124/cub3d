@@ -122,8 +122,15 @@ static void	ft_cast_rays(t_game *game)
 	int d_x = 0;
 	long double cosinus;
 	long double sinus;
-	long double accel = 0.0000002;
-	long double speed = 0.0001;
+	// long double accel = 0.0000002;
+	// long double speed = 0.0001;
+	// long double speed = (long double)0.0005; //для 2000*1000
+	// long double speed = (long double)0.002; //для 500 * 250
+	// long double speed = (long double)0.0013; // для 800 * 600
+	long double speed = (long double)0.001; // для 1000 * 600
+	long double accel = (long double)2.0 * (game->fov / (long double)2.0 - speed * (long double)WIDTH / (long double)2) / (((long double)WIDTH / (long double)2) * ((long double)WIDTH / (long double)2));
+	// printf("%Lf %Lf\n", speed, accel);
+
 	// while (ray.start <= ray.end)//пока угол луча(текущий угол луча относительно ОХ) не достигнет максимального угла дуги
 	while (d_x < WIDTH)
 	{
@@ -131,7 +138,7 @@ static void	ft_cast_rays(t_game *game)
 			speed += accel;
 		else
 			speed -= accel;
-		ray.start += 15 * speed;
+		ray.start += speed;
 		ray.x = game->plr->x;// каждый раз возвращаемся в точку начала
 		ray.y = game->plr->y;
 		cosinus = cos(ray.start);
@@ -146,9 +153,6 @@ static void	ft_cast_rays(t_game *game)
 		long double range = sqrtf(powf(ray.x - game->plr->x, 2.0) + powf(ray.y - game->plr->y, 2.0)); //длина луча грязная
 		ft_draw_ray(game, d_x, range,  game->plr->angle - ray.start); //рисовать столбец полностью с полом и потолком
 		d_x++;//переход на след столбец камеры
-		// ray.start += game->fov / WIDTH; //переход луча на след угол
-		
-
 	}
 }
 
