@@ -20,7 +20,9 @@ SRCS				= SRC/main.c\
 					SRC/errors.c\
 					SRC/read_map.c\
 					SRC/free.c\
-					SRC/render.c
+					SRC/render.c\
+					SRC/minimap.c\
+					SRC/rays.c
 SRCS_B				= SRC_B/main_bonus.c\
 					SRC_B/moves_bonus.c\
 					SRC_B/errors_bonus.c\

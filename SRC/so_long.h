@@ -60,6 +60,7 @@ typedef struct s_game {
 	t_img	*draw;
 
 	t_plr	*plr; // игрок
+	t_plr	ray;
 	t_img	*north_wall;
 	t_img	*west_wall;
 	t_img	*south_wall;
@@ -70,7 +71,7 @@ typedef struct s_game {
 	char	*map_name;
 	char	**map;
 	int		k_map;
-
+	int		d_x;
 	int		x_mouse_now;
 	int		y_mouse_now;
 	int		x_mouse_before;
@@ -78,6 +79,10 @@ typedef struct s_game {
 	int		toogle_mouse;
 
 	t_img	*side_img; // куда луч смотрит, один из wall
+	long double cosinus;
+	long double sinus;
+	long double speed;
+	long double accel;
 	int		p_x; // стартовые  позиции
 	int		p_y; // стартовые позиции
 	int		h; // высота экрана не нужна
@@ -102,5 +107,9 @@ void	rot_right(t_game *game);
 void	liberator(t_game	*game);
 int		render(t_game *game);
 void	put_pixel(t_img *draw, int x, int y, unsigned color);
-
+unsigned int	get_pixel(t_img *img, unsigned x, unsigned y);
+void	put_men_map(t_game *game);
+void	put_rectanlge_map(t_game *game, int x, int y, unsigned int color);
+void	draw_minimap(t_game *game);
+void	ft_cast_rays(t_game *game);
 #endif
