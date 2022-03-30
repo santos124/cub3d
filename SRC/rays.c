@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "cub3d.h"
 
 static t_img	*get_side_cub(t_game *game, t_plr *ray)
 {

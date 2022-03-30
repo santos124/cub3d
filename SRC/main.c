@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "cub3d.h"
 
 static void	init_imgs(t_game *game)
 {
@@ -138,7 +138,7 @@ int	main(int ac, char **av)
 								&game->draw->end);
 
 	
-	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "so_long");
+	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3d");
 	
 	init_imgs(game);
 	game->fov = FOV * M_PI / 180.0;

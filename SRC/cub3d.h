@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   cub3d.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wadina <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
+#ifndef CUB3D_H
 # define HEIGHT 1000
 # define WIDTH 2000
 # define FOOT 0.2
 # define FOV 90.0
 # define ROTATE_ANGLE 0.2
-# define SO_LONG_H
+# define CUB3D_H
 # include	<stdio.h>
 # include	<stdlib.h>
 # include	<unistd.h>
