@@ -23,7 +23,8 @@
 # include	"../libft/libft.h"
 # include	"../mlx/mlx.h"
 
-typedef struct s_img {
+typedef struct s_img
+{
 	void	*img;
 	char	*addr; // указатель на пиксели в одномерном массиве
 	int		bpp; // бит в пикселе
@@ -42,6 +43,17 @@ typedef struct	s_plr //структура для игрока и луча
 	float		end; // правый диапазон направления в рад вид сверху
 
 }				  t_plr;
+
+typedef struct	s_parser
+{
+	char	**map;
+	int		col; // tebe ne nuzhno
+	int		line; // tebe ne nuzhno
+	int		color_bot_ceil[2][3]; //color_bot_ceil[0] - zvet pola,
+	// color_bot_ceil[1] - zvet potolka
+	char	*path_direction[4];// [0] - NO, [1] - SO, [2] - WE, [3] - EA
+	int		tex_flag[6]; // tebe ne nuzhno
+}	t_parser;
 
 typedef struct s_game {
 	void	*mlx;

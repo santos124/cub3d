@@ -1,24 +1,21 @@
 #include "so_long.h"
 
-// check path of textures
-
-// in ft_error вшить free
-
 typedef struct	s_parser
 {
 	char	**map;
 	int		col; //num str in column
 	int		line; //num char in line
-	int		color_bot_ceil[2][3];
-	int		color_ceil[3];
-	char	*path_direction[4];
+	int		color_bot_ceil[2][3]; //color_bot_ceil[0] - zvet pola,
+	// color_bot_ceil[1] - zvet potolka
+	//int		color_ceil[3];
+	char	*path_direction[4];// [0] - NO, [1] - SO, [2] - WE, [3] - EA
 	int		tex_flag[6];
-}	t_parser; // заменяет t_all
+}	t_parser;
 
 
 
 
-int	check_valid_char(char **map)
+static int	check_valid_char(char **map)
 {
 	int i;
 	int j;
@@ -47,129 +44,7 @@ int	check_valid_char(char **map)
 	return (0);
 }
 
-int		parse_tex_and_colors(char *buf, t_parser *p)
-{
-	int	i;
-
-	i = 0;
-	if (p->tex_flag[0] == 1 && p->tex_flag[1] == 1 && p->tex_flag[2] == 1 &&
-		p->tex_flag[3] == 1 && p->tex_flag[4] == 1 && p->tex_flag[5] == 1)// check
-		// massiv that only one  n s e w f c checked
-		return (1);
-	while (buf[i] == ' ')
-		i++;
-	if (!strncmp("NO ", buf + i, 3))
-		return (get_texture(0, buf + i + 3, p)); // check texture file
-	// errors
-	// handling ft_error("Error: some errors in textures and files in
-	// mapfile!");
-	if (!strncmp("SO ", buf + i, 3))
-		return (get_texture(1, buf + i + 3, p)); // check texture file
-	// errors
-	// handling ft_error("Error: some errors in textures and files in
-	// mapfile!");
-	if (!strncmp("WE ", buf + i, 3))
-		return (get_texture(2, buf + i + 3, p)); // check texture file errors
-	// handling ft_error("Error: some errors in textures and files in
-	// mapfile!");
-	if (!strncmp("EA ", buf + i, 3))
-		return (get_texture(3, buf + i + 3, p)); // check texture file errors
-	// handling ft_error("Error: some errors in textures and files in
-	// mapfile!");
-	if (!strncmp("F ", buf + i, 2))
-		return (get_color(0, buf + i + 2, p)); // check texture file
-	// errors
-	// handling ft_error("Error: some errors in textures and files in
-	// mapfile!");
-	if (!strncmp("C ", buf + i, 2))
-		return (get_color(1, buf + i + 2, p)); // check texture file errors
-	// handling ft_error("Error: some errors in textures and files in
-	// mapfile!");
-	return (0);
-}
-
-
-int		get_texture(int type, char *buf, t_parser *p)
-//structure of
-// texture need to be created
-{
-	int		i;
-
-	i = 0;
-	while (buf[i] == ' ')
-		i++;
-	p->path_direction[type] = ft_strdup(buf + i);
-	if (!p->path_direction[type])
-		ft_error("Error: malloc error!");
-	p->tex_flag[0] = 1; //flag
-	return (0);
-}
-
-int		get_color(int type, char *buf, t_parser *p)
-{
-	int		i;
-	int		j;
-	int		k;
-	char	**split;
-	int		color;
-
-	i = 0;
-	k = 0;
-	while (buf[i] == ' ')
-		i++;
-	j = i;
-	while (!buf[j])
-	{
-		if (buf[j] == ',')
-			k++;
-		j++;
-	}
-	if (k != 2)
-		ft_error("Error: wrong RGB value!");
-	split = ft_split(buf + i, ',');
-	while (k >= 0)
-	{
-		color = ft_atoi(split[k]);
-		if (color >= 255 || color < 0)
-			ft_error("Error: wrong RGB value!");
-		p->color_bot_ceil[type][k] = color;
-		k--;
-	}
-	free_all(split);
-	p->tex_flag[type + 4] = 1; // flag
-	return (0);
-}
-
-void	free_all(char **all)
-{
-	int	i;
-
-	i = 0;
-	while (all[i])
-	{
-		free(all[i]);
-		i++;
-	}
-	free(all);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-char	**ft_super_malloc(char **map, int num)
+static char	**ft_super_malloc(char **map, int num)
 {
 	char	**new;
 	int		i;
@@ -232,67 +107,9 @@ int		parse_map(t_parser *p, int fd)
 	}
 	free(buf);
 	close(fd);
-	return (    ); // ???
+	return (    );
 }
 
-
-void	check_map_size(t_parser *p)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	while (p->map[i])
-	{
-		j = 0;
-		while (p->map[i][j])
-		{
-			j++;
-			if (j > p->line)
-				p->line = j;
-		}
-		i++;
-	}
-	p->col = i;
-}
-
-char	*ft_realloc_mod(char *str, int num, char c)
-{
-	int i;
-	char *new;
-
-	i = 0;
-	new = (char *) malloc(sizeof(char) * (num + 1));
-	if (!new)
-		ft_error("Error: malloc error!");
-	new = (char *) ft_memset(new, ' ', num);
-	new[num] = '\0';
-	while (str[i])
-	{
-		new[i] = str[i];
-		i++;
-	}
-	return (new);
-}
-
-void	rectangle_map(t_parser *p)
-{
-	int	i;
-
-
-	i = 0;
-	while (p->map[i])
-	{
-		if (ft_strlen(p->map[i]) < p->line)
-		{
-			p->map[i] = ft_realloc_mod(p->map[i], p->line, ' '); // \0
-			// dopolnitelno
-			if (p->map[i] == NULL)
-				ft_error("Error: malloc error!");
-		}
-		i++;
-	}
-}
 
 int	parse_tex(t_parser *p, char *file) // add structures parse, tex,
 // all in header
