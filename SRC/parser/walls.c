@@ -1,16 +1,6 @@
 #include "so_long.h"
 
-// карту добить пробелами
-// записать горизонтальные и вертикальные размеры
-
-int		check_walls(t_parse *all)
-{
-	int		check_line(t_all *all, int col, int line);
-	int		check_column(t_all *all, int col, int line);
-}
-
-
-int		check_line(t_all *all, int col, int line) // 0 error; 1 norm map
+static int	check_line(t_parser *p) // 0 error; 1 norm map
 {
 	int i;
 	int j;
@@ -18,15 +8,15 @@ int		check_line(t_all *all, int col, int line) // 0 error; 1 norm map
 
 	i = 0;
 	last = 0;
-	while (i < col)
+	while (i < p->col)
 	{
 		j = 0;
-		while (j < line && all->map[i][j] == ' ')
+		while (j < p->line && all->map[i][j] == ' ')
 			j++;
-		if (j < line && all->map[i][j] != '1')
+		if (j < p->line && all->map[i][j] != '1')
 			return (0); // false
 		j++;
-		while (j < line)
+		while (j < p->line)
 		{
 			if (all->map[i][j] == '1')
 				last = 1;
@@ -45,7 +35,7 @@ int		check_line(t_all *all, int col, int line) // 0 error; 1 norm map
 	return (1); // norm
 }
 
-int		check_column(t_all *all, int col, int line)
+static int	check_column(t_parser *p)
 {
 	int	i;
 	int	j;
@@ -53,15 +43,15 @@ int		check_column(t_all *all, int col, int line)
 
 	j = 0;
 	last = 0;
-	while (j < line)
+	while (j < p->line)
 	{
 		i = 0;
-		while (i < col && all->map[i][j] == ' ')
+		while (i < p->col && all->map[i][j] == ' ')
 			i++;
-		if (i < col && all->map[i][j] != '1')
+		if (i < p->col && all->map[i][j] != '1')
 			return (0); // false
 		i++;
-		while (i < col)
+		while (i < p->col)
 		{
 			if (all->map[i][j] == '1')
 				last = 1;
@@ -78,4 +68,13 @@ int		check_column(t_all *all, int col, int line)
 		j++;
 	}
 	return (1); // norm
+}
+
+int		check_walls(t_parser *p)
+{
+	if (!check_line(p))
+		return (0);
+	if (!check_column(p))
+		return (0);
+	return (1);
 }
