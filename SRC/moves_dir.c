@@ -14,10 +14,6 @@
 
 int in_wall(t_game *game, float x ,float y)
 {
-	(void)game;
-	(void)x;
-	(void)y;
-
 	float x_c;
 	float y_c;
 	float angle = 0.0;

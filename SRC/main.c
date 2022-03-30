@@ -14,27 +14,6 @@
 
 static void	init_imgs(t_game *game)
 {
-//	game->pers->img = mlx_xpm_file_to_image(game->mlx, "imgs/persM.xpm",
-//			&game->pers->w, &game->pers->h);
-//	if (game->pers->img == NULL)
-//		game_close(1, game);
-//	game->space->img = mlx_xpm_file_to_image(game->mlx, "imgs/spaceM.xpm",
-//			&game->space->w, &game->space->h);
-//	if (game->space->img == NULL)
-//		game_close(1, game);
-//	game->wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/wallM.xpm",
-//			&game->wall->w, &game->wall->h);
-//	if (game->wall->img == NULL)
-//		game_close(1, game);
-//	game->food->img = mlx_xpm_file_to_image(game->mlx, "imgs/foodM.xpm",
-//			&game->food->w, &game->food->h);
-//	if (game->wall->img == NULL)
-//		game_close(1, game);
-//	game->exit->img = mlx_xpm_file_to_image(game->mlx, "imgs/exitM.xpm",
-//			&game->exit->w, &game->exit->h);
-//	if (game->exit->img == NULL)
-//		game_close(1, game);
-	//t_img выше которые, все удалить
 	game->north_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/north.xpm",
 			&game->north_wall->w, &game->north_wall->h);
 	if (game->north_wall->img == NULL)
@@ -158,14 +137,11 @@ int	main(int ac, char **av)
 	game->draw->addr = mlx_get_data_addr(game->draw->img, &game->draw->bpp, &game->draw->l_len,
 								&game->draw->end);
 
-	game->k_map = HEIGHT / 70;
-
 	
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "so_long");
 	
 	init_imgs(game);
 	game->fov = FOV * M_PI / 180.0;
-	// printf("game->fov%f\n", game->fov * 180 / M_PI);
 	game->plr->angle = M_PI * 3  / 2.0;
 	game->plr->x = game->p_x + 0.5;
 	game->plr->y = game->p_y + 0.5;

@@ -13,7 +13,7 @@
 #ifndef SO_LONG_H
 # define HEIGHT 1000
 # define WIDTH 2000
-# define FOOT	0.2
+# define FOOT 0.2
 # define FOV 90.0
 # define ROTATE_ANGLE 0.2
 # define SO_LONG_H
@@ -29,12 +29,21 @@ typedef struct s_img {
 	void	*img;
 	char	*addr; // указатель на пиксели в одномерном массиве
 	int		bpp; // бит в пикселе
-	// int		bpp_del;
 	int		l_len; // длина линии
 	int		end; // эндиан
 	int		w; // ширина кол-во пикселей
 	int		h; // высота кол-во пикселей
 }				t_img;
+
+typedef struct	s_parser {
+	char	**map;
+	int		col; // tebe ne nuzhno
+	int		line; // tebe ne nuzhno
+	int		color_bot_ceil[2][3]; //color_bot_ceil[0] - zvet pola,
+	// color_bot_ceil[1] - zvet potolka
+	char	*path_direction[4];// [0] - NO, [1] - SO, [2] - WE, [3] - EA
+	int		tex_flag[6]; // tebe ne nuzhno
+}		t_parser;
 
 typedef struct	s_plr //структура для игрока и луча
 {
@@ -43,17 +52,7 @@ typedef struct	s_plr //структура для игрока и луча
 	long double		angle; // направление, куда смотрит игрок в рад вид сверху
 	long double		start; // левый диапазон направления в рад вид сверху
 	long double		end; // правый диапазон направления в рад вид сверху
-
-}				  t_plr;
-
-typedef struct	s_mouse //структура для игрока и луча
-{
-	
-	int x_last;
-	int x_now;
-	int y_last;
-	int y_now;
-}				  t_mouse;
+}	t_plr;
 
 typedef struct s_game {
 	void	*mlx;

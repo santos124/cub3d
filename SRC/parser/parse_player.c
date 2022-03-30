@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-static void	player_look_y(int i, int j, t_all *all) // S N
+static void	player_look_y(int i, int j, t_parser *p) // S N
 {
 	//x-coordinate
 	//y-coordinate
@@ -11,7 +11,7 @@ static void	player_look_y(int i, int j, t_all *all) // S N
 	//map[i][j] = 0
 }
 
-static void	player_look_x(int i, int j, t_all *all) // E W
+static void	player_look_x(int i, int j, t_parser *p) // E W
 {
 	//x-coordinate
 	//y-coordinate
@@ -22,26 +22,26 @@ static void	player_look_x(int i, int j, t_all *all) // E W
 	//map[i][j] = 0
 }
 
-void parse_player(t_all *all)
+void parse_player(t_parser *p)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (all->map[i])
+	while (p->map[i])
 	{
 		j = 0;
-		while (all->map[i][j])
+		while (p->map[i][j])
 		{
-			if (all->map[i][j] == 'S' || all->map[i][j] == 'N')
+			if (p->map[i][j] == 'S' || p->map[i][j] == 'N')
 			{
-				player_look_y(i, j, all);
+				player_look_y(i, j, p);
 				return ;
 			}
-			if (all->map[i][j] == 'E' || all->map[i][j] == 'W')
+			if (p->map[i][j] == 'E' || p->map[i][j] == 'W')
 			{
-				player_look_x(i, j, all);
-				return;
+				player_look_x(i, j, p);
+				return ;
 			}
 			j++;
 		}
