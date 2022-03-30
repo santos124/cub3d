@@ -112,12 +112,6 @@ static t_game	*init_mem(char **av)
 		game_close(3, game);
 	*game->draw = (t_img){0};
 
-	game->minimap = malloc(sizeof(t_img));
-	if (!game->minimap)
-		game_close(3, game);
-	*game->minimap = (t_img){0};
-
-
 	game->north_wall = malloc(sizeof(t_img));
 	if (!game->north_wall)
 		game_close(3, game);

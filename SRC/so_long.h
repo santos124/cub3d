@@ -11,11 +11,11 @@
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
-# define HEIGHT 600
-# define WIDTH 1000
-# define FOOT	0.1
+# define HEIGHT 1000
+# define WIDTH 2000
+# define FOOT	0.2
 # define FOV 90.0
-# define ROTATE_ANGLE 0.05
+# define ROTATE_ANGLE 0.2
 # define SO_LONG_H
 # include	<stdio.h>
 # include	<stdlib.h>
@@ -53,13 +53,12 @@ typedef struct	s_mouse //структура для игрока и луча
 	int x_now;
 	int y_last;
 	int y_now;
-}				  t_nouse;
+}				  t_mouse;
 
 typedef struct s_game {
 	void	*mlx;
 	void	*win;
 	t_img	*draw;
-	t_img	*minimap;
 
 	t_plr	*plr; // игрок
 	t_img	*north_wall;
