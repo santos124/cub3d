@@ -22,11 +22,11 @@ static int	get_texture(int type, char *buf, t_parser *p)
 		i++;
 	p->path_direction[type] = ft_strdup(buf + i);
 	if (!p->path_direction[type])
-		ft_error("Error: malloc error!");
+		ft_error("Error: malloc error!", p);
 	p->tex_flag[0] = 1; //flag
 	fd = open(file, O_READONLY);
 	if (fd == -1)
-		ft_error("Error: texture file not detected!");
+		ft_error("Error: texture file not detected!", p);
 	close(fd);
 	return (0);
 }
@@ -51,13 +51,13 @@ static int	get_color(int type, char *buf, t_parser *p)
 		j++;
 	}
 	if (k != 2)
-		ft_error("Error: wrong RGB value!");
+		ft_error("Error: wrong RGB value!", p);
 	split = ft_split(buf + i, ',');
 	while (k >= 0)
 	{
 		color = ft_atoi(split[k]);
 		if (color >= 255 || color < 0)
-			ft_error("Error: wrong RGB value!");
+			ft_error("Error: wrong RGB value!", p);
 		p->color_bot_ceil[type][k] = color;
 		k--;
 	}
@@ -74,7 +74,7 @@ int		parse_tex_and_colors(char *buf, t_parser *p)
 	if (p->tex_flag[0] == 1 && p->tex_flag[1] == 1 && p->tex_flag[2] == 1 &&
 		p->tex_flag[3] == 1 && p->tex_flag[4] == 1 && p->tex_flag[5] == 1)// check
 		// massiv that only one  n s e w f c
-		return (1);
+		return (ft_error("Error: repeatable symbols!", p));
 	while (buf[i] == ' ')
 		i++;
 	if (!strncmp("NO ", buf + i, 3))

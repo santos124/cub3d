@@ -50,6 +50,7 @@ typedef struct	s_plr //структура для игрока и луча
 	long double		x; // х позиция
 	long double		y; // у позиция
 	long double		angle; // направление, куда смотрит игрок в рад вид сверху
+	// WE = 0   NO = -m_pi/2  EA = pi SO = m_pi/2
 	long double		start; // левый диапазон направления в рад вид сверху
 	long double		end; // правый диапазон направления в рад вид сверху
 }	t_plr;

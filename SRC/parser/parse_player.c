@@ -47,5 +47,5 @@ void parse_player(t_parser *p)
 		}
 		i++;
 	}
-	ft_error("Error: no player on the map!")
+	ft_error("Error: no player on the map!", p);
 }

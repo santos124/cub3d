@@ -28,7 +28,7 @@ static char	*ft_realloc_mod(char *str, int num, char c)
 	i = 0;
 	new = (char *) malloc(sizeof(char) * (num + 1));
 	if (!new)
-		ft_error("Error: malloc error!");
+		ft_error("Error: malloc error!", NULL);
 	new = (char *) ft_memset(new, ' ', num);
 	new[num] = '\0';
 	while (str[i])
@@ -52,7 +52,7 @@ void	rectangle_map(t_parser *p)
 			p->map[i] = ft_realloc_mod(p->map[i], p->line, ' '); // \0
 			// dopolnitelno
 			if (p->map[i] == NULL)
-				ft_error("Error: malloc error!");
+				ft_error("Error: malloc error!", p);
 		}
 		i++;
 	}

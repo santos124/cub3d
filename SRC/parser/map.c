@@ -31,12 +31,12 @@ static int	check_valid_char(char **map)
 			if (map[i][j] != 'N' && map[i][j] != 'S' && map[i][j] != 'W' &&
 				map[i][j] != 'E' && map[i][j] != '1' && map[i][j] != '0' &&
 				map[i][j] != ' ')
-				return (ft_error("Error: invalid characters detected!"));
+				return (ft_error("Error: invalid characters detected!", p));
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W' ||
 				map[i][j] == 'E')
 				dup++;
 			if (dup > 1)
-				return (ft_error("Error: repeatable characters detected!"));
+				return (ft_error("Error: repeatable characters detected!", p));
 			j++;
 		}
 		i++;
@@ -60,7 +60,7 @@ static char	**ft_super_malloc(char **map, int num)
 			new[i] = ft_strdup(map[i]);
 			j = i;
 			if (!new[i])
-				ft_error("Error: malloc error!");
+				ft_error("Error: malloc error!", p);
 		}
 		else
 			new[i] = NULL;
@@ -101,7 +101,7 @@ int		parse_map(t_parser *p, int fd)
 		p->map = ft_super_malloc(p->map, i + 1);
 		p->map[i] = ft_strdup[buf];
 		if (!p->map[i])
-			ft_error("Error: malloc error!");
+			ft_error("Error: malloc error!", p);
 		i++;
 		free(buf);
 	}
@@ -111,15 +111,14 @@ int		parse_map(t_parser *p, int fd)
 }
 
 
-int	parse_tex(t_parser *p, char *file) // add structures parse, tex,
-// all in header
+int		parse_tex(t_parser *p, char *file) //
 {
 	int fd;
 	char *buf;
 
 	fd = open(file, O_READONLY);
 	if (fd == -1)
-		ft_error("Error: mapfile not detected!");
+		ft_error("Error: mapfile not detected!", p);
 	ft_init_struct(); // init structure parse
 	while (get_next_line(fd, &buf) && !parse_tex_and_colors(buf, p))  //
 		// check_read_texcol check textures and colors flags in structure parse
@@ -129,7 +128,7 @@ int	parse_tex(t_parser *p, char *file) // add structures parse, tex,
 
 	p->map = get_map(p, fd); //
 	if (!p->map)
-		ft_error("Error: can't read map!");
+		ft_error("Error: can't read map!", p);
 	check_map(p); //
 	check_walls(p); //
 	parse_player(p);
