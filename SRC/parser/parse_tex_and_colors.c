@@ -1,4 +1,5 @@
-#include "so_long.h"
+#include "../cub3d.h"
+
 
 static void	free_all(char **all)
 {
@@ -16,6 +17,7 @@ static void	free_all(char **all)
 static int	get_texture(int type, char *buf, t_parser *p)
 {
 	int	i;
+	int	fd;
 
 	i = 0;
 	while (buf[i] == ' ')
@@ -23,8 +25,8 @@ static int	get_texture(int type, char *buf, t_parser *p)
 	p->path_direction[type] = ft_strdup(buf + i);
 	if (!p->path_direction[type])
 		ft_error("Error: malloc error!", p);
-	p->tex_flag[0] = 1; //flag
-	fd = open(file, O_READONLY);
+	p->tex_flag[type] += 1;
+	fd = open(p->path_direction[type], O_RDONLY);
 	if (fd == -1)
 		ft_error("Error: texture file not detected!", p);
 	close(fd);
@@ -44,7 +46,7 @@ static int	get_color(int type, char *buf, t_parser *p)
 	while (buf[i] == ' ')
 		i++;
 	j = i;
-	while (!buf[j])
+	while (buf[j])
 	{
 		if (buf[j] == ',')
 			k++;
@@ -62,7 +64,7 @@ static int	get_color(int type, char *buf, t_parser *p)
 		k--;
 	}
 	free_all(split);
-	p->tex_flag[type + 4] = 1; // flag
+	p->tex_flag[type + 4] += 1; // flag
 	return (0);
 }
 
@@ -71,15 +73,16 @@ int		parse_tex_and_colors(char *buf, t_parser *p)
 	int	i;
 
 	i = 0;
+	if (p->tex_flag[0] > 1 || p->tex_flag[1] > 1 || p->tex_flag[2] > 1 ||
+		p->tex_flag[3] > 1 || p->tex_flag[4] > 1 || p->tex_flag[5] > 1)
+		ft_error("Error: repeatable symbols!", p);
 	if (p->tex_flag[0] == 1 && p->tex_flag[1] == 1 && p->tex_flag[2] == 1 &&
-		p->tex_flag[3] == 1 && p->tex_flag[4] == 1 && p->tex_flag[5] == 1)// check
-		// massiv that only one  n s e w f c
-		return (ft_error("Error: repeatable symbols!", p));
+		p->tex_flag[3] == 1 && p->tex_flag[4] == 1 && p->tex_flag[5] == 1)
+		return (-1);
 	while (buf[i] == ' ')
 		i++;
 	if (!strncmp("NO ", buf + i, 3))
-		return (get_texture(0, buf + i + 3, p)); // check texture file errors
-// handling ft_error("Error: some errors in textures and files in mapfile!");
+		return (get_texture(0, buf + i + 3, p));
 	if (!strncmp("SO ", buf + i, 3))
 		return (get_texture(1, buf + i + 3, p));
 	if (!strncmp("WE ", buf + i, 3))

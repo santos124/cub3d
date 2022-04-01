@@ -1,6 +1,7 @@
-#include "so_long.h"
+#include "../cub3d.h"
 
-static int	check_line(t_parser *p) // 0 error; 1 norm map
+
+static int	check_line(t_parser *p)
 {
 	int i;
 	int j;
@@ -11,28 +12,28 @@ static int	check_line(t_parser *p) // 0 error; 1 norm map
 	while (i < p->col)
 	{
 		j = 0;
-		while (j < p->line && all->map[i][j] == ' ')
+		while (j < p->line && p->map[i][j] == ' ')
 			j++;
-		if (j < p->line && all->map[i][j] != '1')
-			return (0); // false
+		if (j < p->line && p->map[i][j] != '1')
+			return (0);
 		j++;
 		while (j < p->line)
 		{
-			if (all->map[i][j] == '1')
+			if (p->map[i][j] == '1')
 				last = 1;
-			if (all->map[i][j] == '0')
+			if (p->map[i][j] == '0')
 				last = 0;
-			if (all->map[i][j] == ' ' && last = 0)
-				return (0); // false
-			if (all->map[i][j - 1] == ' ' && all->map[i][j] == '0')
-				return (0); //false
+			if (p->map[i][j] == ' ' && last == 0)
+				return (0);
+			if (p->map[i][j - 1] == ' ' && p->map[i][j] == '0')
+				return (0);
 			j++;
 		}
 		if (last != 1)
-			return (0); // false
+			return (0);
 		i++;
 	}
-	return (1); // norm
+	return (1);
 }
 
 static int	check_column(t_parser *p)
@@ -46,28 +47,28 @@ static int	check_column(t_parser *p)
 	while (j < p->line)
 	{
 		i = 0;
-		while (i < p->col && all->map[i][j] == ' ')
+		while (i < p->col && p->map[i][j] == ' ')
 			i++;
-		if (i < p->col && all->map[i][j] != '1')
-			return (0); // false
+		if (i < p->col && p->map[i][j] != '1')
+			return (0);
 		i++;
 		while (i < p->col)
 		{
-			if (all->map[i][j] == '1')
+			if (p->map[i][j] == '1')
 				last = 1;
-			if (all->map[i][j] == '0')
+			if (p->map[i][j] == '0')
 				last = 0;
-			if (all->map[i][j] == ' ' && last = 0)
-				return (0); // false
-			if (all->map[i-1][j] == ' ' && all->map[i][j] == '0')
-				return (0); //false
+			if (p->map[i][j] == ' ' && last == 0)
+				return (0);
+			if (p->map[i-1][j] == ' ' && p->map[i][j] == '0')
+				return (0);
 			i++;
 		}
 		if (last != 1)
-			return (0); // false
+			return (0);
 		j++;
 	}
-	return (1); // norm
+	return (1);
 }
 
 int		check_walls(t_parser *p)

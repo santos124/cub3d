@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "../cub3d.h"
 
 static void	check_map_size(t_parser *p)
 {
@@ -36,6 +36,11 @@ static char	*ft_realloc_mod(char *str, int num, char c)
 		new[i] = str[i];
 		i++;
 	}
+	while (i < num)
+	{
+		new[i] = c;
+		i++;
+	}
 	return (new);
 }
 
@@ -45,16 +50,15 @@ void	rectangle_map(t_parser *p)
 
 
 	i = 0;
+	check_map_size(p);
 	while (p->map[i])
 	{
-		if (ft_strlen(p->map[i]) < p->line)
+		if ((int)ft_strlen(p->map[i]) < p->line)
 		{
-			p->map[i] = ft_realloc_mod(p->map[i], p->line, ' '); // \0
-			// dopolnitelno
+			p->map[i] = ft_realloc_mod(p->map[i], p->line, ' ');
 			if (p->map[i] == NULL)
 				ft_error("Error: malloc error!", p);
 		}
 		i++;
 	}
 }
-
