@@ -26,7 +26,7 @@ SRCS				= SRC/main.c\
 					SRC/parser/init_and_error.c\
 					SRC/parser/map.c\
 					SRC/parser/parse_player.c\
-					SRC/parser/parse_tex_and_color.c\
+					SRC/parser/parse_tex_and_colors.c\
 					SRC/parser/rec_map.c\
 					SRC/parser/walls.c
 

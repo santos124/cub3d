@@ -103,7 +103,11 @@ void	read_map(t_game *game, char *map_name);
 
 t_parser	*parse_all(char *file);
 void	ft_error(char *info, t_parser *p);
-
+t_parser	*ft_init_struct(t_parser *p);
+int		parse_tex_and_colors(char *buf, t_parser *p);
+void	rectangle_map(t_parser *p);
+int		check_walls(t_parser *p);
+void parse_player(t_parser *p);
 
 int		key(int keycode, t_game *game);
 int		button(t_game *game);

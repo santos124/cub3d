@@ -67,7 +67,7 @@ static void parse_map(t_parser *p, int fd)
 	k = 0;
 	while(k < 2)
 	{
-		if (!get_next_line(fd, &buf))
+		if (!gnl(fd, &buf))
 			k++;
 		if(!buf[0])
 			continue ;
@@ -102,7 +102,7 @@ t_parser	*parse_all(char *file)
 	if (fd == -1)
 		ft_error("Error: mapfile not detected!", p);
 	p = ft_init_struct(p);
-	while (get_next_line(fd, &buf) && !parse_tex_and_colors(buf, p))
+	while (gnl(fd, &buf) && !parse_tex_and_colors(buf, p))
 		free(buf);
 	if (buf)
 		free(buf);

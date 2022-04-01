@@ -130,7 +130,7 @@ int	main(int ac, char **av)
 		
 	game = init_mem(av);
 	game->parser = parse_all(av[1]);
-	print_map(game);
+	
 	game->mlx = mlx_init();
 	game->draw->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 
@@ -139,7 +139,7 @@ int	main(int ac, char **av)
 
 	
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3d");
-	
+	exit(0);
 	init_imgs(game);
 	game->fov = FOV * M_PI / 180.0;
 	game->plr->angle = M_PI * 3  / 2.0;

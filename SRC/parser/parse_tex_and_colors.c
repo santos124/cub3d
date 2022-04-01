@@ -81,17 +81,17 @@ int		parse_tex_and_colors(char *buf, t_parser *p)
 		return (-1);
 	while (buf[i] == ' ')
 		i++;
-	if (!strncmp("NO ", buf + i, 3))
+	if (!ft_strncmp("NO ", buf + i, 3))
 		return (get_texture(0, buf + i + 3, p));
-	if (!strncmp("SO ", buf + i, 3))
+	if (!ft_strncmp("SO ", buf + i, 3))
 		return (get_texture(1, buf + i + 3, p));
-	if (!strncmp("WE ", buf + i, 3))
+	if (!ft_strncmp("WE ", buf + i, 3))
 		return (get_texture(2, buf + i + 3, p));
-	if (!strncmp("EA ", buf + i, 3))
+	if (!ft_strncmp("EA ", buf + i, 3))
 		return (get_texture(3, buf + i + 3, p));
-	if (!strncmp("F ", buf + i, 2))
+	if (!ft_strncmp("F ", buf + i, 2))
 		return (get_color(0, buf + i + 2, p));
-	if (!strncmp("C ", buf + i, 2))
+	if (!ft_strncmp("C ", buf + i, 2))
 		return (get_color(1, buf + i + 2, p));
 	return (0);
 }
