@@ -12,6 +12,7 @@
 
 #include "libft.h"
 
+
 void	buf_change(char *ptr)
 {
 	int	ind;
