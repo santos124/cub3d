@@ -32,7 +32,7 @@ SRCS				= SRC/main.c\
 OBJS				= ${SRCS:.c=.o}
 OBJS_B				= ${SRCS_B:.c=.o}
 CC					= clang
-CFLAGS  			= -Wall -Wextra -Werror
+CFLAGS  			= -Wall -Wextra -Werror -g
 LIBFTDIR			=	libft
 LIBFT				=	$(LIBFTDIR)/libft.a
 LIBMLXDIR			=	mlx

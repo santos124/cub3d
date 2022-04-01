@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
-# define HEIGHT 1000
-# define WIDTH 2000
+# define HEIGHT 600
+# define WIDTH 800
 # define FOOT 0.2
-# define FOV 90.0
+# define FOV 66.0
 # define ROTATE_ANGLE 0.2
 # define CUB3D_H
 # include	<stdio.h>
@@ -71,7 +71,7 @@ typedef struct s_game {
 	t_img	*south_wall;
 	t_img	*east_wall;
 	long double	x_side; // отношение отрезка от левой грани куба до точки
-	// пересечения с лучем к грани куба
+						// пересечения с лучем к грани куба
 	long double	fov; // угол обзора
 	char	**map;
 	int		k_map;
@@ -81,18 +81,15 @@ typedef struct s_game {
 	int		x_mouse_before;
 	int		y_mouse_before;
 	int		toogle_mouse;
-
+	int		cnt_frame;
 	t_img	*side_img; // куда луч смотрит, один из wall
 	long double cosinus;
 	long double sinus;
 	long double speed;
 	long double accel;
-	int		p_x; // стартовые  позиции
-	int		p_y; // стартовые позиции
 	int		h; // высота экрана не нужна
 	int		w; // ширина экрана не нужна
 	long double	cos;
-	// int		need_clear;	// флаг очистки
 }				t_game;
 
 

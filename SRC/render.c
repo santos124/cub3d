@@ -27,9 +27,13 @@ unsigned int	get_pixel(t_img *img, unsigned x, unsigned y)
 
 int	render(t_game *game)
 {
-	mlx_clear_window(game->mlx, game->win);
-	ft_cast_rays(game);
-	draw_minimap(game);
-	mlx_put_image_to_window(game->mlx, game->win, game->draw->img, 0, 0);
+	if (game->cnt_frame % 4 == 0)
+	{
+		mlx_clear_window(game->mlx, game->win);
+		ft_cast_rays(game);
+		draw_minimap(game);
+		mlx_put_image_to_window(game->mlx, game->win, game->draw->img, 0, 0);
+	}
+	game->cnt_frame++;
 	return (0);
 }

@@ -58,7 +58,7 @@ static t_game	*init_mem(void)
 	return (game);
 }
 
-static void	init_plr(t_game *game)
+static void	init_game_var(t_game *game)
 {
 	game->map = game->parser->map;
 	game->fov = FOV * M_PI / 180.0;
@@ -71,6 +71,7 @@ static void	init_plr(t_game *game)
 	game->parser->map[(int)game->plr->y][(int)game->plr->x] = '0';
 	game->h = game->parser->col;
 	game->w = game->parser->line;
+	game->cnt_frame = 0;
 }
 
 int	main(int ac, char **av)
@@ -87,7 +88,7 @@ int	main(int ac, char **av)
 			&game->draw->l_len, &game->draw->end);
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3d");
 	init_imgs(game);
-	init_plr(game);
+	init_game_var(game);
 	mlx_hook(game->win, 2, 1L << 0, key, game);
 	mlx_hook(game->win, 17, 1L << 2, button, game);
 	mlx_mouse_hook(game->win, mouse_toogle, game);
