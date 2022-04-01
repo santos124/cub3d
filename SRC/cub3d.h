@@ -43,6 +43,9 @@ typedef struct	s_parser {
 	// color_bot_ceil[1] - zvet potolka
 	char	*path_direction[4];// [0] - NO, [1] - SO, [2] - WE, [3] - EA
 	int		tex_flag[6]; // tebe ne nuzhno
+	float 	x;
+	float 	y;
+	float	angle;
 }		t_parser;
 
 typedef struct	s_plr //структура для игрока и луча

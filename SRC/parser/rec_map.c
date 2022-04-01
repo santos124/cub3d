@@ -26,10 +26,10 @@ static char	*ft_realloc_mod(char *str, int num, char c)
 	char *new;
 
 	i = 0;
-	new = (char *) malloc(sizeof(char) * (num + 1));
+	new = (char *)malloc(sizeof(char) * (num + 1));
 	if (!new)
 		ft_error("Error: malloc error!", NULL);
-	new = (char *) ft_memset(new, ' ', num);
+	new = (char *)ft_memset(new, ' ', num);
 	new[num] = '\0';
 	while (str[i])
 	{

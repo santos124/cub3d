@@ -15,7 +15,7 @@ typedef struct	s_parser
 
 
 
-static int	check_valid_char(char **map)
+static void	check_valid_char(char **map)
 {
 	int i;
 	int j;
@@ -41,7 +41,6 @@ static int	check_valid_char(char **map)
 		}
 		i++;
 	}
-	return (0);
 }
 
 static char	**ft_super_malloc(char **map, int num)
@@ -73,14 +72,7 @@ static char	**ft_super_malloc(char **map, int num)
 	return (new)
 }
 
-
-
-
-
-
-
-
-int		parse_map(t_parser *p, int fd)
+static void parse_map(t_parser *p, int fd)
 {
 	char	*buf;
 	int		i;
@@ -107,31 +99,30 @@ int		parse_map(t_parser *p, int fd)
 	}
 	free(buf);
 	close(fd);
-	return (    );
 }
 
 
-int		parse_tex(t_parser *p, char *file) //
+int		parse_all(char *file) //posmotret vozvrashaemoe znatschenie
 {
-	int fd;
-	char *buf;
+	int			fd;
+	char		*buf;
+	t_parser	*p;
 
 	fd = open(file, O_READONLY);
 	if (fd == -1)
 		ft_error("Error: mapfile not detected!", p);
-	ft_init_struct(); // init structure parse
+	p = ft_init_struct(p); // init structure parse
 	while (get_next_line(fd, &buf) && !parse_tex_and_colors(buf, p))  //
 		// check_read_texcol check textures and colors flags in structure parse
 		free(buf);
 	free(buf);
-
-
-	p->map = get_map(p, fd); //
+	parse_map(p, fd);
+	rectangle_map(p);
 	if (!p->map)
 		ft_error("Error: can't read map!", p);
-	check_map(p); //
-	check_walls(p); //
+	check_valid_char(p->map);
+	if (!check_walls(p))
+		ft_error("Error: map is not surrounded by walls!", p);
 	parse_player(p);
-	open_tex(p);
-	return (   );
+	return (0); // posmotret vozvrashaemoe znatschenie
 }
