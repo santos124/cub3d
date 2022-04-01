@@ -12,61 +12,41 @@
 
 #include "cub3d.h"
 
+static void	get_img(t_img **imga, t_game *game, int i)
+{
+	t_img	*img;
+
+	*imga = malloc(sizeof(t_img));
+	img = *imga;
+	if (!(*imga))
+		game_close(3, game);
+	img->img = mlx_xpm_file_to_image(game->mlx,
+			game->parser->path_direction[i], &img->w, &img->h);
+	if (img->img == NULL)
+		game_close(1, game);
+	img->addr = mlx_get_data_addr(img->img,
+			&img->bpp, &img->l_len,
+			&img->end);
+	if (img->addr == NULL)
+		game_close(1, game);
+}
+
 static void	init_imgs(t_game *game)
 {
-	game->north_wall->img = mlx_xpm_file_to_image(game->mlx, game->parser->path_direction[0],
-			&game->north_wall->w, &game->north_wall->h);
-	if (game->north_wall->img == NULL)
-		game_close(1, game);
-	game->north_wall->addr = mlx_get_data_addr(game->north_wall->img, &game->north_wall->bpp, &game->north_wall->l_len, &game->north_wall->end);
-	if (game->north_wall->addr == NULL)
-		game_close(1, game);
-
-	game->south_wall->img = mlx_xpm_file_to_image(game->mlx, game->parser->path_direction[1],
-			&game->south_wall->w, &game->south_wall->h);
-	if (game->south_wall->img == NULL)
-		game_close(1, game);
-	game->south_wall->addr = mlx_get_data_addr(game->south_wall->img, &game->south_wall->bpp, &game->south_wall->l_len, &game->south_wall->end);
-	if (game->south_wall->addr == NULL)
-		game_close(1, game);
-
-	game->west_wall->img = mlx_xpm_file_to_image(game->mlx, game->parser->path_direction[2],
-			&game->west_wall->w, &game->west_wall->h);
-	if (game->west_wall->img == NULL)
-		game_close(1, game);
-	game->west_wall->addr = mlx_get_data_addr(game->west_wall->img, &game->west_wall->bpp, &game->west_wall->l_len, &game->west_wall->end);
-	if (game->west_wall->addr == NULL)
-		game_close(1, game);
-
-	game->east_wall->img = mlx_xpm_file_to_image(game->mlx, game->parser->path_direction[3],
-			&game->east_wall->w, &game->east_wall->h);
-	if (game->east_wall->img == NULL)
-		game_close(1, game);
-	game->east_wall->addr = mlx_get_data_addr(game->east_wall->img, &game->east_wall->bpp, &game->east_wall->l_len, &game->east_wall->end);
-	if (game->east_wall->addr == NULL)
-		game_close(1, game);
-
-
-
-	
+	get_img(&game->north_wall, game, 0);
+	get_img(&game->south_wall, game, 1);
+	get_img(&game->west_wall, game, 2);
+	get_img(&game->east_wall, game, 3);
 }
 
-static void	init_game(t_game *game)
-{
-	*game = (t_game){0};
-}
-
-static t_game	*init_mem(char **av)
+static t_game	*init_mem(void)
 {
 	t_game	*game;
 
 	game = malloc(sizeof(t_game));
 	if (!game)
 		game_close(3, game);
-	init_game(game);
-	game->map_name = ft_strdup(av[1]);
-	if (!game->map_name)
-		game_close(3, game);
+	*game = (t_game){0};
 	game->plr = malloc(sizeof(t_plr));
 	if (!game->plr)
 		game_close(3, game);
@@ -75,51 +55,11 @@ static t_game	*init_mem(char **av)
 	if (!game->draw)
 		game_close(3, game);
 	*game->draw = (t_img){0};
-	game->north_wall = malloc(sizeof(t_img));
-	if (!game->north_wall)
-		game_close(3, game);
-	game->west_wall = malloc(sizeof(t_img));
-	if (!game->west_wall)
-		game_close(3, game);
-	game->south_wall = malloc(sizeof(t_img));
-	if (!game->south_wall)
-		game_close(3, game);
-	game->east_wall = malloc(sizeof(t_img));
-	if (!game->east_wall)
-		game_close(3, game);
 	return (game);
 }
 
-void print_map(t_game *game)
+static void	init_plr(t_game *game)
 {
-	int y = 0;
-	while (y < game->h)
-	{
-		printf("s[%d]=%s\n", y, game->map[y]);
-		y++;
-	}
-}
-
-int	main(int ac, char **av)
-{
-	t_game	*game;
-
-	
-	if (ac != 2)
-		game_close(6, NULL);
-	
-		
-	game = init_mem(av);
-	game->parser = parse_all(av[1]);
-	
-	game->mlx = mlx_init();
-	game->draw->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-
-	game->draw->addr = mlx_get_data_addr(game->draw->img, &game->draw->bpp, &game->draw->l_len,
-								&game->draw->end);
-	
-	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3d");
-	init_imgs(game);
 	game->map = game->parser->map;
 	game->fov = FOV * M_PI / 180.0;
 	game->plr->angle = game->parser->angle;
@@ -128,9 +68,26 @@ int	main(int ac, char **av)
 	game->x_mouse_now = 0;
 	game->y_mouse_now = 0;
 	game->toogle_mouse = 0;
-	printf("%s\n", game->parser->map[0]);
+	game->parser->map[(int)game->plr->y][(int)game->plr->x] = '0';
 	game->h = game->parser->col;
 	game->w = game->parser->line;
+}
+
+int	main(int ac, char **av)
+{
+	t_game	*game;
+
+	if (ac != 2)
+		game_close(6, NULL);
+	game = init_mem();
+	game->parser = parse_all(av[1]);
+	game->mlx = mlx_init();
+	game->draw->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	game->draw->addr = mlx_get_data_addr(game->draw->img, &game->draw->bpp,
+			&game->draw->l_len, &game->draw->end);
+	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3d");
+	init_imgs(game);
+	init_plr(game);
 	mlx_hook(game->win, 2, 1L << 0, key, game);
 	mlx_hook(game->win, 17, 1L << 2, button, game);
 	mlx_mouse_hook(game->win, mouse_toogle, game);
@@ -139,4 +96,3 @@ int	main(int ac, char **av)
 	mlx_loop(game->mlx);
 	return (0);
 }
-

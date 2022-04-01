@@ -14,25 +14,25 @@
 
 static t_img	*get_side_cub(t_game *game, t_plr *ray)
 {
-	if (game->map[(int)(ray->y)][(int)(ray->x + 0.01)] != '1')
+	if (game->map[(int)(ray->y)][(int)(ray->x + 0.01)] == '0')
 	{
 		game->x_side = ((long double)(int)ray->y + 1.0000) - ray->y;
-		return (game->east_wall);
-	}
-	if (game->map[(int)(ray->y + 0.01)][(int)(ray->x)] != '1')
-	{
-		game->x_side = ray->x - (long double)(int)ray->x;
-		return (game->south_wall);
-	}
-	if (game->map[(int)(ray->y)][(int)(ray->x - 0.01)] != '1')
-	{
-		game->x_side = ray->y - (long double)(int)ray->y;
 		return (game->west_wall);
 	}
-	if (game->map[(int)(ray->y - 0.01)][(int)(ray->x)] != '1')
+	if (game->map[(int)(ray->y + 0.01)][(int)(ray->x)] == '0')
+	{
+		game->x_side = ray->x - (long double)(int)ray->x;
+		return (game->north_wall);
+	}
+	if (game->map[(int)(ray->y)][(int)(ray->x - 0.01)] == '0')
+	{
+		game->x_side = ray->y - (long double)(int)ray->y;
+		return (game->east_wall);
+	}
+	if (game->map[(int)(ray->y - 0.01)][(int)(ray->x)] == '0')
 	{
 		game->x_side = ((long double)(int)ray->x + 1.0000) - ray->x;
-		return (game->north_wall);
+		return (game->south_wall);
 	}
 	game->x_side = 0;
 	return (game->east_wall);
@@ -68,7 +68,7 @@ static void	ft_draw_ray(t_game *game, int x, t_plr ray)
 
 static void	get_end_ray_pos(t_game *game)
 {
-	while (game->map[(int)(game->ray.y)][(int)(game->ray.x)] != '1')
+	while (game->map[(int)(game->ray.y)][(int)(game->ray.x)] == '0')
 	{
 		game->ray.x += game->cosinus / 100.0;
 		game->ray.y += game->sinus / 100.0;
@@ -84,7 +84,6 @@ void	ft_cast_rays(t_game *game)
 	game->ray.start = game->ray.angle - game->fov / 2.00;
 	game->ray.end = game->ray.angle + game->fov / 2.00;
 	game->d_x = 0;
-	
 	while (game->d_x < WIDTH)
 	{
 		if (game->ray.start <= game->ray.angle)
@@ -96,9 +95,7 @@ void	ft_cast_rays(t_game *game)
 		game->ray.y = game->plr->y;
 		game->cosinus = cos(game->ray.start);
 		game->sinus = sin(game->ray.start);
-		
 		get_end_ray_pos(game);
-
 		game->side_img = get_side_cub(game, &game->ray);
 		ft_draw_ray(game, game->d_x++, game->ray);
 	}

@@ -33,9 +33,9 @@ int	mouse_move(int x, int y, t_game *game)
 		game->x_mouse_now = x;
 		game->y_mouse_now = y;
 		if (game->x_mouse_now < game->x_mouse_before)
-			rot_left(game);
+			rot_left_m(game);
 		else if (game->x_mouse_now > game->x_mouse_before)
-			rot_right(game);
+			rot_right_m(game);
 	}
 	return (0);
 }

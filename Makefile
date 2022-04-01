@@ -18,7 +18,6 @@ SRCS				= SRC/main.c\
 					SRC/moves_dir.c\
 					SRC/moves_left_right.c\
 					SRC/errors.c\
-					SRC/read_map.c\
 					SRC/free.c\
 					SRC/render.c\
 					SRC/minimap.c\

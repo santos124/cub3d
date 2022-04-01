@@ -29,10 +29,7 @@ int	render(t_game *game)
 {
 	mlx_clear_window(game->mlx, game->win);
 	ft_cast_rays(game);
-	
 	draw_minimap(game);
-	
 	mlx_put_image_to_window(game->mlx, game->win, game->draw->img, 0, 0);
-
 	return (0);
 }

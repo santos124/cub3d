@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
-# define HEIGHT 500
-# define WIDTH 1000
+# define HEIGHT 1000
+# define WIDTH 2000
 # define FOOT 0.2
 # define FOV 90.0
 # define ROTATE_ANGLE 0.2
@@ -73,7 +73,6 @@ typedef struct s_game {
 	long double	x_side; // отношение отрезка от левой грани куба до точки
 	// пересечения с лучем к грани куба
 	long double	fov; // угол обзора
-	char	*map_name;
 	char	**map;
 	int		k_map;
 	int		d_x;
@@ -119,6 +118,8 @@ void	dir_left(t_game *game);
 void	dir_right(t_game *game);
 void	rot_left(t_game *game);
 void	rot_right(t_game *game);
+void	rot_left_m(t_game *game);
+void	rot_right_m(t_game *game);
 void	liberator(t_game	*game);
 int		render(t_game *game);
 void	put_pixel(t_img *draw, int x, int y, unsigned color);
