@@ -57,7 +57,7 @@ void	next_line(char *bf, char **line, int fd, int *ret)
 	}
 }
 
-int	gnl(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char		buf[BUFFER_SIZE + 1];
 	int				ret;

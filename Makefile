@@ -22,15 +22,14 @@ SRCS				= SRC/main.c\
 					SRC/free.c\
 					SRC/render.c\
 					SRC/minimap.c\
-					SRC/rays.c
-SRCS_B				= SRC_B/main_bonus.c\
-					SRC_B/moves_bonus.c\
-					SRC_B/errors_bonus.c\
-					SRC_B/read_map_bonus.c\
-					SRC_B/free_bonus.c\
-					SRC_B/render_bonus.c\
-					SRC_B/load_files.c\
-					SRC_B/valid_map_bonus.c
+					SRC/rays.c\
+					SRC/parser/init_and_error.c\
+					SRC/parser/map.c\
+					SRC/parser/parse_player.c\
+					SRC/parser/parse_tex_and_color.c\
+					SRC/parser/rec_map.c\
+					SRC/parser/walls.c
+
 OBJS				= ${SRCS:.c=.o}
 OBJS_B				= ${SRCS_B:.c=.o}
 CC					= clang

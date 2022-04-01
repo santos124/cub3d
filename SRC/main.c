@@ -129,7 +129,7 @@ int	main(int ac, char **av)
 	
 		
 	game = init_mem(av);
-	read_map(game, av[1]);
+	game->parser = parse_all(av[1]);
 	print_map(game);
 	game->mlx = mlx_init();
 	game->draw->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);

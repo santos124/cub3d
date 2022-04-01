@@ -63,6 +63,7 @@ typedef struct s_game {
 	void	*win;
 	t_img	*draw;
 
+	t_parser *parser;
 	t_plr	*plr; // игрок
 	t_plr	ray;
 	t_img	*north_wall;
@@ -97,7 +98,13 @@ typedef struct s_game {
 
 
 void	game_close(int err, t_game *game);
+
 void	read_map(t_game *game, char *map_name);
+
+t_parser	*parse_all(char *file);
+void	ft_error(char *info, t_parser *p);
+
+
 int		key(int keycode, t_game *game);
 int		button(t_game *game);
 int		mouse_toogle(int keycode, int x, int y, t_game *game);
