@@ -14,7 +14,7 @@
 
 static void	init_imgs(t_game *game)
 {
-	game->north_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/north.xpm",
+	game->north_wall->img = mlx_xpm_file_to_image(game->mlx, game->parser->path_direction[0],
 			&game->north_wall->w, &game->north_wall->h);
 	if (game->north_wall->img == NULL)
 		game_close(1, game);
@@ -22,7 +22,7 @@ static void	init_imgs(t_game *game)
 	if (game->north_wall->addr == NULL)
 		game_close(1, game);
 
-	game->south_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/south.xpm",
+	game->south_wall->img = mlx_xpm_file_to_image(game->mlx, game->parser->path_direction[1],
 			&game->south_wall->w, &game->south_wall->h);
 	if (game->south_wall->img == NULL)
 		game_close(1, game);
@@ -30,7 +30,7 @@ static void	init_imgs(t_game *game)
 	if (game->south_wall->addr == NULL)
 		game_close(1, game);
 
-	game->west_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/west.xpm",
+	game->west_wall->img = mlx_xpm_file_to_image(game->mlx, game->parser->path_direction[2],
 			&game->west_wall->w, &game->west_wall->h);
 	if (game->west_wall->img == NULL)
 		game_close(1, game);
@@ -38,7 +38,7 @@ static void	init_imgs(t_game *game)
 	if (game->west_wall->addr == NULL)
 		game_close(1, game);
 
-	game->east_wall->img = mlx_xpm_file_to_image(game->mlx, "imgs/east.xpm",
+	game->east_wall->img = mlx_xpm_file_to_image(game->mlx, game->parser->path_direction[3],
 			&game->east_wall->w, &game->east_wall->h);
 	if (game->east_wall->img == NULL)
 		game_close(1, game);
@@ -64,21 +64,6 @@ static t_game	*init_mem(char **av)
 	if (!game)
 		game_close(3, game);
 	init_game(game);
-//	game->space = malloc(sizeof(t_img));
-//	if (!game->space)
-//		game_close(3, game);
-//	game->wall = malloc(sizeof(t_img));
-//	if (!game->wall)
-//		game_close(3, game);
-//	game->food = malloc(sizeof(t_img));
-//	if (!game->food)
-//		game_close(3, game);
-//	game->exit = malloc(sizeof(t_img));
-//	if (!game->exit)
-//		game_close(3, game);
-//	game->pers = malloc(sizeof(t_img));
-//	if (!game->pers)
-//		game_close(3, game);
 	game->map_name = ft_strdup(av[1]);
 	if (!game->map_name)
 		game_close(3, game);
@@ -90,7 +75,6 @@ static t_game	*init_mem(char **av)
 	if (!game->draw)
 		game_close(3, game);
 	*game->draw = (t_img){0};
-
 	game->north_wall = malloc(sizeof(t_img));
 	if (!game->north_wall)
 		game_close(3, game);
@@ -103,9 +87,6 @@ static t_game	*init_mem(char **av)
 	game->east_wall = malloc(sizeof(t_img));
 	if (!game->east_wall)
 		game_close(3, game);
-	
-	
-
 	return (game);
 }
 
@@ -136,18 +117,20 @@ int	main(int ac, char **av)
 
 	game->draw->addr = mlx_get_data_addr(game->draw->img, &game->draw->bpp, &game->draw->l_len,
 								&game->draw->end);
-
 	
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3d");
-	exit(0);
 	init_imgs(game);
+	game->map = game->parser->map;
 	game->fov = FOV * M_PI / 180.0;
-	game->plr->angle = M_PI * 3  / 2.0;
-	game->plr->x = game->p_x + 0.5;
-	game->plr->y = game->p_y + 0.5;
+	game->plr->angle = game->parser->angle;
+	game->plr->x = game->parser->x;
+	game->plr->y = game->parser->y;
 	game->x_mouse_now = 0;
 	game->y_mouse_now = 0;
 	game->toogle_mouse = 0;
+	printf("%s\n", game->parser->map[0]);
+	game->h = game->parser->col;
+	game->w = game->parser->line;
 	mlx_hook(game->win, 2, 1L << 0, key, game);
 	mlx_hook(game->win, 17, 1L << 2, button, game);
 	mlx_mouse_hook(game->win, mouse_toogle, game);

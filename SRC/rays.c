@@ -84,6 +84,7 @@ void	ft_cast_rays(t_game *game)
 	game->ray.start = game->ray.angle - game->fov / 2.00;
 	game->ray.end = game->ray.angle + game->fov / 2.00;
 	game->d_x = 0;
+	
 	while (game->d_x < WIDTH)
 	{
 		if (game->ray.start <= game->ray.angle)
@@ -95,7 +96,9 @@ void	ft_cast_rays(t_game *game)
 		game->ray.y = game->plr->y;
 		game->cosinus = cos(game->ray.start);
 		game->sinus = sin(game->ray.start);
+		
 		get_end_ray_pos(game);
+
 		game->side_img = get_side_cub(game, &game->ray);
 		ft_draw_ray(game, game->d_x++, game->ray);
 	}
