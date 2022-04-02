@@ -27,7 +27,8 @@ SRCS				= SRC/main.c\
 					SRC/parser/parse_player.c\
 					SRC/parser/parse_tex_and_colors.c\
 					SRC/parser/rec_map.c\
-					SRC/parser/walls.c
+					SRC/parser/walls.c\
+					SRC/parser/map_utils.c
 
 OBJS				= ${SRCS:.c=.o}
 OBJS_B				= ${SRCS_B:.c=.o}

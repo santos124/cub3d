@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rec_map.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eaurelio <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/02 23:56:27 by eaurelio          #+#    #+#             */
+/*   Updated: 2022/04/02 23:56:29 by eaurelio         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 static void	check_map_size(t_parser *p)
@@ -24,8 +36,8 @@ static void	check_map_size(t_parser *p)
 
 static char	*ft_realloc_mod(char *str, int num, char c)
 {
-	int i;
-	char *new;
+	int		i;
+	char	*new;
 
 	i = 0;
 	new = (char *)malloc(sizeof(char) * (num + 1));
@@ -48,16 +60,20 @@ static char	*ft_realloc_mod(char *str, int num, char c)
 
 void	rectangle_map(t_parser *p)
 {
-	int	i;
-
+	int		i;
+	void	*tmp;
 
 	i = 0;
+	tmp = NULL;
 	check_map_size(p);
 	while (p->map[i])
 	{
 		if ((int)ft_strlen(p->map[i]) < p->line)
 		{
+			tmp = p->map[i];
 			p->map[i] = ft_realloc_mod(p->map[i], p->line, ' ');
+			if (tmp != NULL && tmp != p->map[i])
+				free (tmp);
 			if (p->map[i] == NULL)
 				ft_error("Error: malloc error!", p);
 		}

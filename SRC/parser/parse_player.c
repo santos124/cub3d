@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_player.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eaurelio <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/02 23:56:00 by eaurelio          #+#    #+#             */
+/*   Updated: 2022/04/02 23:56:02 by eaurelio         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 static void	player_look(int i, int j, t_parser *p)
@@ -14,7 +26,7 @@ static void	player_look(int i, int j, t_parser *p)
 		p->angle = 0;
 }
 
-void parse_player(t_parser *p)
+void	parse_player(t_parser *p)
 {
 	int	i;
 	int	j;

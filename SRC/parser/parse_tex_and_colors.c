@@ -1,5 +1,16 @@
-#include "../cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_tex_and_colors.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eaurelio <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/02 23:56:14 by eaurelio          #+#    #+#             */
+/*   Updated: 2022/04/02 23:56:16 by eaurelio         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../cub3d.h"
 
 static void	free_all(char **all)
 {
@@ -33,6 +44,19 @@ static int	get_texture(int type, char *buf, t_parser *p)
 	return (0);
 }
 
+static void	sub_get_color(char *buf, int *i, int *j, int *k)
+{
+	while (buf[*i] == ' ')
+		(*i)++;
+	*j = *i;
+	while (buf[*j])
+	{
+		if (buf[*j] == ',')
+			(*k)++;
+		(*j)++;
+	}
+}
+
 static int	get_color(int type, char *buf, t_parser *p)
 {
 	int		i;
@@ -43,15 +67,7 @@ static int	get_color(int type, char *buf, t_parser *p)
 
 	i = 0;
 	k = 0;
-	while (buf[i] == ' ')
-		i++;
-	j = i;
-	while (buf[j])
-	{
-		if (buf[j] == ',')
-			k++;
-		j++;
-	}
+	sub_get_color(buf, &i, &j, &k);
 	if (k != 2)
 		ft_error("Error: wrong RGB value!", p);
 	split = ft_split(buf + i, ',');
@@ -64,25 +80,17 @@ static int	get_color(int type, char *buf, t_parser *p)
 		k--;
 	}
 	free_all(split);
-	p->tex_flag[type + 4] += 1; // flag
+	p->tex_flag[type + 4] += 1;
 	return (0);
 }
 
-//int 	check_parse_flags(t_parser *p)
-//{
-//	if (p->tex_flag[0] == 1 && p->tex_flag[1] == 1 && p->tex_flag[2] == 1 &&
-//		p->tex_flag[3] == 1 && p->tex_flag[4] == 1 && p->tex_flag[5] == 1)
-//		return (-1);
-//	return (0);
-//}
-
-int		parse_tex_and_colors(char *buf, t_parser *p)
+int	parse_tex_and_colors(char *buf, t_parser *p)
 {
 	int	i;
 
 	i = 0;
-	if (p->tex_flag[0] > 1 || p->tex_flag[1] > 1 || p->tex_flag[2] > 1 ||
-		p->tex_flag[3] > 1 || p->tex_flag[4] > 1 || p->tex_flag[5] > 1)
+	if (p->tex_flag[0] > 1 || p->tex_flag[1] > 1 || p->tex_flag[2] > 1
+		|| p->tex_flag[3] > 1 || p->tex_flag[4] > 1 || p->tex_flag[5] > 1)
 		ft_error("Error: repeatable symbols!", p);
 	while (buf[i] == ' ')
 		i++;
