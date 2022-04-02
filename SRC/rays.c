@@ -59,9 +59,9 @@ static void	ft_draw_ray(t_game *game, int x, t_plr ray)
 					* (y - (HEIGHT - h) / 2) / h));
 		}
 		else if (y < HEIGHT / 2)
-			put_pixel(game->draw, x, y, 0x00A99B98);
+			put_pixel(game->draw, x, y, game->color_top);
 		else
-			put_pixel(game->draw, x, y, 0x00473E3D);
+			put_pixel(game->draw, x, y, game->color_bot);
 		y++;
 	}
 }

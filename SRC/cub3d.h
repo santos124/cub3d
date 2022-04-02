@@ -87,6 +87,8 @@ typedef struct s_game {
 	long double sinus;
 	long double speed;
 	long double accel;
+	long int	color_bot;
+	long int	color_top;
 	int		h; // высота экрана не нужна
 	int		w; // ширина экрана не нужна
 	long double	cos;
@@ -125,4 +127,5 @@ void	put_men_map(t_game *game);
 void	put_rectanlge_map(t_game *game, int x, int y, unsigned int color);
 void	draw_minimap(t_game *game);
 void	ft_cast_rays(t_game *game);
+void	get_colors(t_game *game);
 #endif

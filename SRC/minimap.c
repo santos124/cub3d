@@ -12,6 +12,16 @@
 
 #include "cub3d.h"
 
+void	get_colors(t_game *game)
+{
+	game->color_top = game->parser->color_bot_ceil[0][2] + 256L
+		* game->parser->color_bot_ceil[0][1] + 256L * 256L
+		* game->parser->color_bot_ceil[0][0];
+	game->color_bot = game->parser->color_bot_ceil[1][2] + 256L
+		* game->parser->color_bot_ceil[1][1] + 256L * 256L
+		* game->parser->color_bot_ceil[1][0];
+}
+
 void	put_men_map(t_game *game)
 {
 	int	i;

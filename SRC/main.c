@@ -83,6 +83,7 @@ int	main(int ac, char **av)
 	game = init_mem();
 	game->parser = parse_all(av[1]);
 	game->mlx = mlx_init();
+	get_colors(game);
 	game->draw->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->draw->addr = mlx_get_data_addr(game->draw->img, &game->draw->bpp,
 			&game->draw->l_len, &game->draw->end);
