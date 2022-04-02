@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
-# define HEIGHT 600
-# define WIDTH 800
+# define HEIGHT 1000
+# define WIDTH 2000
 # define FOOT 0.15
 # define FOV 66.0
 # define ROTATE_ANGLE 0.05
