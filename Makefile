@@ -56,7 +56,7 @@ $(LIBMLX)	: Makefile $(LIBMLXDIR)/mlx.h $(LIBMLXDIR)/Makefile
 re: 		fclean all
 
 clean		:
-			rm -f $(OBJS) $(OBJS_B)
+			rm -f $(OBJS)
 			make -C $(LIBFTDIR) clean
 			make -C $(LIBMLXDIR) clean
 
