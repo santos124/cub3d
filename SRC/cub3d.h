@@ -123,4 +123,5 @@ void			ft_cast_rays(t_game *game);
 void			get_colors(t_game *game);
 char			**ft_super_malloc(char **map, int num);
 void			check_valid_char(t_parser *p);
+void			check_map_format(char *file, int *fd);
 #endif

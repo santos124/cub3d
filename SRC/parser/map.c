@@ -76,8 +76,7 @@ t_parser	*parse_all(char *file)
 	p = NULL;
 	buf = NULL;
 	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		ft_error("Error: mapfile not detected!", p);
+	check_map_format(file, &fd);
 	p = ft_init_struct(p);
 	while (gnl(fd, &buf) && !parse_tex_and_colors(buf, p))
 	{
