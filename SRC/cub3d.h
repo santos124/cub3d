@@ -13,9 +13,9 @@
 #ifndef CUB3D_H
 # define HEIGHT 600
 # define WIDTH 800
-# define FOOT 0.2
+# define FOOT 0.15
 # define FOV 66.0
-# define ROTATE_ANGLE 0.2
+# define ROTATE_ANGLE 0.05
 # define CUB3D_H
 # include	<stdio.h>
 # include	<stdlib.h>
