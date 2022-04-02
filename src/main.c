@@ -35,8 +35,8 @@ static void	init_imgs(t_game *game)
 {
 	get_img(&game->north_wall, game, 0);
 	get_img(&game->south_wall, game, 1);
-	get_img(&game->west_wall, game, 2);
-	get_img(&game->east_wall, game, 3);
+	get_img(&game->west_wall, game, 3);
+	get_img(&game->east_wall, game, 2);
 }
 
 static t_game	*init_mem(void)
