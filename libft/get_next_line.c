@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 void	buf_change(char *ptr)
 {
@@ -64,6 +65,8 @@ int	gnl(int fd, char **line)
 	if (!line || fd < 0 || read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0)
 		return (-1);
 	*line = malloc(1);
+	if (*line == NULL)
+		return (-1);
 	(*line)[0] = 0;
 	ret = 1;
 	next_line(buf, line, fd, &ret);

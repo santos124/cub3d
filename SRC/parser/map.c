@@ -2,8 +2,8 @@
 
 static void	check_valid_char(t_parser *p)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 	int	dup;
 
 	dup = 0;
@@ -13,12 +13,13 @@ static void	check_valid_char(t_parser *p)
 		j = 0;
 		while (p->map[i][j])
 		{
-			if (p->map[i][j] != 'N' && p->map[i][j] != 'S' && p->map[i][j] != 'W' &&
-				p->map[i][j] != 'E' && p->map[i][j] != '1' && p->map[i][j] != '0' &&
+			if (p->map[i][j] != 'N' && p->map[i][j] != 'S' &&
+				p->map[i][j] != 'W' && p->map[i][j] != 'E' &&
+				p->map[i][j] != '1' && p->map[i][j] != '0' &&
 				p->map[i][j] != ' ')
 				return (ft_error("Error: invalid characters detected!", p));
-			if (p->map[i][j] == 'N' || p->map[i][j] == 'S' || p->map[i][j] == 'W' ||
-				p->map[i][j] == 'E')
+			if (p->map[i][j] == 'N' || p->map[i][j] == 'S' ||
+				p->map[i][j] == 'W' || p->map[i][j] == 'E')
 				dup++;
 			if (dup > 1)
 				return (ft_error("Error: repeatable characters detected!", p));
@@ -37,6 +38,8 @@ static char	**ft_super_malloc(char **map, int num)
 	i = 0;
 	j = 0;
 	new = (char **)malloc(sizeof(char *) * (num + 1));
+	if (new == NULL)
+		ft_error("Error: malloc error!", NULL);
 	while (i < num)
 	{
 		if (map[i])
@@ -51,42 +54,70 @@ static char	**ft_super_malloc(char **map, int num)
 		i++;
 	}
 	new[i] = NULL;
-	while (j--)
-		free(map[j]);
+	while (j >= 0)
+		free(map[j--]);
 	free(map);
 	return (new);
 }
 
-static void parse_map(t_parser *p, int fd)
+//static void	sub_parse_map(t_parser *p, char *buf, int *i)
+//{
+//	p->map = (char **)malloc(sizeof(char *) * 2);
+//	if (!p->map)
+//		ft_error("Error: malloc error!", p);
+//	p->map[0] = ft_strdup(buf);
+//	p->map[1] = NULL;
+//	(*i)++;
+//}
+
+static int 	check_parse_flags(t_parser *p)
 {
-	char	*buf;
+	if (p->tex_flag[0] == 1 && p->tex_flag[1] == 1 && p->tex_flag[2] == 1 &&
+		p->tex_flag[3] == 1 && p->tex_flag[4] == 1 && p->tex_flag[5] == 1)
+		return (-1);
+	return (0);
+}
+
+static void	sub_parse_map(t_parser *p, char *buf)
+{
+	p->map = (char **)malloc(sizeof(char *) * 2);
+	if (!p->map)
+		ft_error("Error: malloc error!", p);
+	p->map[0] = ft_strdup(buf);
+	p->map[1] = NULL;
+}
+
+
+static void	parse_map(t_parser *p, int fd)
+{
+	char 	*buf;
 	int		i;
-	int		k;
+	int 	ret;
 
 	i = 0;
-	k = 0;
-	while(k < 2)
+	ret = 1;
+	ret = gnl(fd, &buf);
+	while (ret != 0 && !buf[0])
 	{
-		if (!gnl(fd, &buf))
-			k++;
-		if(!buf[0])
-			continue ;
+		free (buf);
+		ret = gnl(fd, &buf);
+	}
+	while (ret && buf[0])
+	{
 		if (i == 0)
 		{
-			p->map = (char **)malloc(sizeof(char *) * 2);
-			p->map[0] = ft_strdup(buf);
-			p->map[1] = NULL;
+			sub_parse_map(p, buf);
 			i++;
-			continue;
+			continue ;
 		}
+		free(buf);
+		ret = gnl(fd, &buf);
 		p->map = ft_super_malloc(p->map, i + 1);
 		p->map[i] = ft_strdup(buf);
-		if (!p->map[i])
+		if (!p->map[i++])
 			ft_error("Error: malloc error!", p);
-		i++;
-		free(buf);
 	}
-	free(buf);
+	free (buf);
 	close(fd);
 }
 
@@ -103,16 +134,19 @@ t_parser	*parse_all(char *file)
 		ft_error("Error: mapfile not detected!", p);
 	p = ft_init_struct(p);
 	while (gnl(fd, &buf) && !parse_tex_and_colors(buf, p))
-		free(buf);
-	if (buf)
-		free(buf);
+	{
+		if (check_parse_flags(p) == -1)
+			break ;
+		free (buf);
+	}
+	free (buf);
 	parse_map(p, fd);
 	rectangle_map(p);
 	if (!p->map)
 		ft_error("Error: can't read map!", p);
 	check_valid_char(p);
 	if (!check_walls(p))
-		ft_error("Error: map is not surrounded by walls!", p);
+		ft_error("Error: map error!", p);
 	parse_player(p);
 	return (p);
 }

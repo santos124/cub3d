@@ -68,6 +68,14 @@ static int	get_color(int type, char *buf, t_parser *p)
 	return (0);
 }
 
+//int 	check_parse_flags(t_parser *p)
+//{
+//	if (p->tex_flag[0] == 1 && p->tex_flag[1] == 1 && p->tex_flag[2] == 1 &&
+//		p->tex_flag[3] == 1 && p->tex_flag[4] == 1 && p->tex_flag[5] == 1)
+//		return (-1);
+//	return (0);
+//}
+
 int		parse_tex_and_colors(char *buf, t_parser *p)
 {
 	int	i;
@@ -76,9 +84,6 @@ int		parse_tex_and_colors(char *buf, t_parser *p)
 	if (p->tex_flag[0] > 1 || p->tex_flag[1] > 1 || p->tex_flag[2] > 1 ||
 		p->tex_flag[3] > 1 || p->tex_flag[4] > 1 || p->tex_flag[5] > 1)
 		ft_error("Error: repeatable symbols!", p);
-	if (p->tex_flag[0] == 1 && p->tex_flag[1] == 1 && p->tex_flag[2] == 1 &&
-		p->tex_flag[3] == 1 && p->tex_flag[4] == 1 && p->tex_flag[5] == 1)
-		return (-1);
 	while (buf[i] == ' ')
 		i++;
 	if (!ft_strncmp("NO ", buf + i, 3))

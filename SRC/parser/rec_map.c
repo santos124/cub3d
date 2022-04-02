@@ -6,6 +6,8 @@ static void	check_map_size(t_parser *p)
 	int		j;
 
 	i = 0;
+	if (!p->map)
+		ft_error("Error: map error!", p);
 	while (p->map[i])
 	{
 		j = 0;

@@ -21,11 +21,11 @@ static int	check_line(t_parser *p)
 		{
 			if (p->map[i][j] == '1')
 				last = 1;
-			if (p->map[i][j] == '0')
+			else if (p->map[i][j] == '0')
 				last = 0;
-			if (p->map[i][j] == ' ' && last == 0)
+			else if (p->map[i][j] == ' ' && last == 0)
 				return (0);
-			if (p->map[i][j - 1] == ' ' && p->map[i][j] == '0')
+			else if (p->map[i][j - 1] == ' ' && p->map[i][j] == '0')
 				return (0);
 			j++;
 		}
@@ -56,11 +56,11 @@ static int	check_column(t_parser *p)
 		{
 			if (p->map[i][j] == '1')
 				last = 1;
-			if (p->map[i][j] == '0')
+			else if (p->map[i][j] == '0')
 				last = 0;
-			if (p->map[i][j] == ' ' && last == 0)
+			else if (p->map[i][j] == ' ' && last == 0)
 				return (0);
-			if (p->map[i-1][j] == ' ' && p->map[i][j] == '0')
+			else if (p->map[i-1][j] == ' ' && p->map[i][j] == '0')
 				return (0);
 			i++;
 		}
