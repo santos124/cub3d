@@ -27,105 +27,98 @@
 
 typedef struct s_img {
 	void	*img;
-	char	*addr; // указатель на пиксели в одномерном массиве
-	int		bpp; // бит в пикселе
-	int		l_len; // длина линии
-	int		end; // эндиан
-	int		w; // ширина кол-во пикселей
-	int		h; // высота кол-во пикселей
+	char	*addr;
+	int		bpp;
+	int		l_len;
+	int		end;
+	int		w;
+	int		h;
 }				t_img;
 
-typedef struct	s_parser {
+typedef struct s_parser {
 	char	**map;
-	int		col; // tebe ne nuzhno
-	int		line; // tebe ne nuzhno
-	int		color_bot_ceil[2][3]; //color_bot_ceil[0] - zvet pola,
-	// color_bot_ceil[1] - zvet potolka
-	char	*path_direction[4];// [0] - NO, [1] - SO, [2] - WE, [3] - EA
-	int		tex_flag[6]; // tebe ne nuzhno
-	float 	x;
-	float 	y;
+	int		col;
+	int		line;
+	int		color_bot_ceil[2][3];
+	char	*path_direction[4];
+	int		tex_flag[6];
+	float	x;
+	float	y;
 	float	angle;
 }		t_parser;
 
-typedef struct	s_plr //структура для игрока и луча
+typedef struct s_plr
 {
-	long double		x; // х позиция
-	long double		y; // у позиция
-	long double		angle; // направление, куда смотрит игрок в рад вид сверху
-	// WE = 0   NO = -m_pi/2  EA = pi SO = m_pi/2
-	long double		start; // левый диапазон направления в рад вид сверху
-	long double		end; // правый диапазон направления в рад вид сверху
+	long double		x;
+	long double		y;
+	long double		angle;
+	long double		start;
+	long double		end;
 }	t_plr;
 
 typedef struct s_game {
-	void	*mlx;
-	void	*win;
-	t_img	*draw;
-
-	t_parser *parser;
-	t_plr	*plr; // игрок
-	t_plr	ray;
-	t_img	*north_wall;
-	t_img	*west_wall;
-	t_img	*south_wall;
-	t_img	*east_wall;
-	long double	x_side; // отношение отрезка от левой грани куба до точки
-						// пересечения с лучем к грани куба
-	long double	fov; // угол обзора
-	char	**map;
-	int		k_map;
-	int		d_x;
-	int		x_mouse_now;
-	int		y_mouse_now;
-	int		x_mouse_before;
-	int		y_mouse_before;
-	int		toogle_mouse;
-	int		cnt_frame;
-	t_img	*side_img; // куда луч смотрит, один из wall
-	long double cosinus;
-	long double sinus;
-	long double speed;
-	long double accel;
+	void		*mlx;
+	void		*win;
+	t_img		*draw;
+	t_parser	*parser;
+	t_plr		*plr;
+	t_plr		ray;
+	t_img		*north_wall;
+	t_img		*west_wall;
+	t_img		*south_wall;
+	t_img		*east_wall;
+	long double	x_side;
+	long double	fov;
+	char		**map;
+	int			k_map;
+	int			d_x;
+	int			x_mouse_now;
+	int			y_mouse_now;
+	int			x_mouse_before;
+	int			y_mouse_before;
+	int			toogle_mouse;
+	int			cnt_frame;
+	t_img		*side_img;
+	long double	cosinus;
+	long double	sinus;
+	long double	speed;
+	long double	accel;
 	long int	color_bot;
 	long int	color_top;
-	int		h; // высота экрана не нужна
-	int		w; // ширина экрана не нужна
+	int			h;
+	int			w;
 	long double	cos;
 }				t_game;
 
-
-void	game_close(int err, t_game *game);
-
-void	read_map(t_game *game, char *map_name);
-
-t_parser	*parse_all(char *file);
-void	ft_error(char *info, t_parser *p);
-t_parser	*ft_init_struct(t_parser *p);
-int		parse_tex_and_colors(char *buf, t_parser *p);
-void	rectangle_map(t_parser *p);
-int		check_walls(t_parser *p);
-void	parse_player(t_parser *p);
-
-int		key(int keycode, t_game *game);
-int		button(t_game *game);
-int		mouse_toogle(int keycode, int x, int y, t_game *game);
-int		mouse_move(int x, int y, t_game *game);
-void	dir_up(t_game *game);
-void	dir_down(t_game *game);
-void	dir_left(t_game *game);
-void	dir_right(t_game *game);
-void	rot_left(t_game *game);
-void	rot_right(t_game *game);
-void	rot_left_m(t_game *game);
-void	rot_right_m(t_game *game);
-void	liberator(t_game	*game);
-int		render(t_game *game);
-void	put_pixel(t_img *draw, int x, int y, unsigned color);
+void			game_close(int err, t_game *game);
+void			read_map(t_game *game, char *map_name);
+t_parser		*parse_all(char *file);
+void			ft_error(char *info, t_parser *p);
+t_parser		*ft_init_struct(t_parser *p);
+int				parse_tex_and_colors(char *buf, t_parser *p);
+void			rectangle_map(t_parser *p);
+int				check_walls(t_parser *p);
+void			parse_player(t_parser *p);
+int				key(int keycode, t_game *game);
+int				button(t_game *game);
+int				mouse_toogle(int keycode, int x, int y, t_game *game);
+int				mouse_move(int x, int y, t_game *game);
+void			dir_up(t_game *game);
+void			dir_down(t_game *game);
+void			dir_left(t_game *game);
+void			dir_right(t_game *game);
+void			rot_left(t_game *game);
+void			rot_right(t_game *game);
+void			rot_left_m(t_game *game);
+void			rot_right_m(t_game *game);
+void			liberator(t_game	*game);
+int				render(t_game *game);
+void			put_pixel(t_img *draw, int x, int y, unsigned int color);
 unsigned int	get_pixel(t_img *img, unsigned x, unsigned y);
-void	put_men_map(t_game *game);
-void	put_rectanlge_map(t_game *game, int x, int y, unsigned int color);
-void	draw_minimap(t_game *game);
-void	ft_cast_rays(t_game *game);
-void	get_colors(t_game *game);
+void			put_men_map(t_game *game);
+void			put_rectanlge_map(t_game *game, int x, int y,
+					unsigned int color);
+void			draw_minimap(t_game *game);
+void			ft_cast_rays(t_game *game);
+void			get_colors(t_game *game);
 #endif
