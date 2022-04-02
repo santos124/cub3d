@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                          :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wadina <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -121,6 +121,6 @@ void			put_rectanlge_map(t_game *game, int x, int y,
 void			draw_minimap(t_game *game);
 void			ft_cast_rays(t_game *game);
 void			get_colors(t_game *game);
-char	**ft_super_malloc(char **map, int num);
-void	check_valid_char(t_parser *p);
+char			**ft_super_malloc(char **map, int num);
+void			check_valid_char(t_parser *p);
 #endif

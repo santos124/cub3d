@@ -11,40 +11,31 @@
 # **************************************************************************** #
 
 NAME				= cub3d
-HEADER		 		= SRC/cub3d.h
-HEADER_B		 	= SRC_B/cub3d_bonus.h
-SRCS				= SRC/main.c\
-					SRC/hooks.c\
-					SRC/moves_dir.c\
-					SRC/moves_left_right.c\
-					SRC/errors.c\
-					SRC/free.c\
-					SRC/render.c\
-					SRC/minimap.c\
-					SRC/rays.c\
-					SRC/parser/init_and_error.c\
-					SRC/parser/map.c\
-					SRC/parser/parse_player.c\
-					SRC/parser/parse_tex_and_colors.c\
-					SRC/parser/rec_map.c\
-					SRC/parser/walls.c\
-					SRC/parser/map_utils.c
+HEADER		 		= src/cub3d.h
+SRCS				= src/main.c\
+					src/hooks.c\
+					src/moves_dir.c\
+					src/moves_left_right.c\
+					src/errors.c\
+					src/free.c\
+					src/render.c\
+					src/minimap.c\
+					src/rays.c\
+					src/parser/init_and_error.c\
+					src/parser/map.c\
+					src/parser/parse_player.c\
+					src/parser/parse_tex_and_colors.c\
+					src/parser/rec_map.c\
+					src/parser/walls.c\
+					src/parser/map_utils.c
 
 OBJS				= ${SRCS:.c=.o}
-OBJS_B				= ${SRCS_B:.c=.o}
 CC					= clang
 CFLAGS  			= -Wall -Wextra -Werror -g
 LIBFTDIR			=	libft
 LIBFT				=	$(LIBFTDIR)/libft.a
 LIBMLXDIR			=	mlx
 LIBMLX				=	$(LIBMLXDIR)/libmlx.a
-
-ifdef WITH_BONUS
-OBJ					= $(OBJS_B)
-HEADER 				= $(HEADER_B)
-else
-OBJ					= $(OBJS)
-endif
 
 all:		${NAME}
 
@@ -73,8 +64,5 @@ fclean		:	clean
 			rm -f $(LIBMLX)
 			rm -f $(LIBFT)
 			rm -f $(NAME)
-
-bonus: 		
-			$(MAKE) WITH_BONUS=1
 
 .PHONY: 	all clean fclean re bonus
