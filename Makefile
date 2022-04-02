@@ -39,10 +39,10 @@ LIBMLX				=	$(LIBMLXDIR)/libmlx.a
 
 all:		${NAME}
 
-$(NAME)		:	$(OBJ) $(LIBFT) $(LIBMLX) $(HEADER) Makefile
+$(NAME)		:	$(OBJS) $(LIBFT) $(LIBMLX) $(HEADER) Makefile
 			$(CC) $(CFLAGS)\
 			-lmlx -framework OpenGL -framework Appkit\
-			$(LIBFT) $(LIBMLX) $(OBJ) -o $(NAME)
+			$(LIBFT) $(LIBMLX) $(OBJS) -o $(NAME)
 
 $(LIBFT)	: Makefile $(LIBFTDIR)/libft.h $(LIBFTDIR)/Makefile
 			make -C $(LIBFTDIR)
