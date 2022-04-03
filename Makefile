@@ -50,7 +50,7 @@ $(LIBFT)	: Makefile $(LIBFTDIR)/libft.h $(LIBFTDIR)/Makefile
 $(LIBMLX)	: Makefile $(LIBMLXDIR)/mlx.h $(LIBMLXDIR)/Makefile
 			make -C $(LIBMLXDIR)
 
-%.o			:	%.c Makefile $(HEADER) $(LIBFT)
+%.o			:	%.c Makefile $(HEADER) $(LIBFT) ./libft/*.c
 			$(CC) $(CFLAGS) -c $< -o $@
 
 re: 		fclean all
@@ -65,4 +65,4 @@ fclean		:	clean
 			rm -f $(LIBFT)
 			rm -f $(NAME)
 
-.PHONY: 	all clean fclean re bonus
+.PHONY: 	all clean fclean re
