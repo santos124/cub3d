@@ -3,71 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wadina <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: eaurelio <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/06 19:08:07 by wadina            #+#    #+#             */
-/*   Updated: 2021/05/11 20:41:37 by wadina           ###   ########.fr       */
+/*   Created: 2022/04/03 04:10:42 by eaurelio          #+#    #+#             */
+/*   Updated: 2022/04/03 04:10:45 by eaurelio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_ok(char c)
+static int	ft_isspace(int c)
 {
-	if (c == 9 || c == 10 || c == 11)
-		return (2);
-	else if (c == 12 || c == 13 || c == 32)
-		return (2);
-	else if (ft_isdigit(c))
-		return (1);
-	else if (c == '-' || c == '+')
-		return (3);
-	else
-		return (5);
-}
-
-static long	ft_mult(const char *str, int i, long num, long sign)
-{
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		if ((num * sign) < -2147483648)
-			return (0);
-		else if ((num * sign) > 2147483647)
-			return (-1);
-		else
-			num = num * 10 + str[i] - '0';
-		if (!(str[i + 1] >= '0' && str[i + 1] <= '9'))
-			break ;
-		i++;
-	}
-	return (num * sign);
+	return (c == '\n' || c == '\t' || c == '\v' || \
+			c == '\f' || c == '\r' || c == ' ');
 }
 
 int	ft_atoi(const char *str)
 {
-	int		i;
-	long	num;
-	long	sign;
+	int					i;
+	unsigned long long	n;
 
 	i = 0;
-	num = 0;
-	sign = 1;
-	while (str[i] && ft_ok(str[i]) < 4)
-	{
-		if (ft_ok(str[i]) == 3 && ft_ok(str[i + 1]) == 1)
-			if (str[i] == '-')
-				sign = -1;
-		if (ft_ok(str[i]) == 3 && ft_ok(str[i + 1]) != 1)
-			break ;
-		if (ft_isdigit(str[i]))
-		{
-			num = ft_mult(str, i, num, sign);
-			break ;
-		}
-		if (ft_ok(str[i]) == 2 && ft_ok(str[i + 1]) == 3)
-			if (ft_ok(str[i + 2]) != 1)
-				break ;
+	n = 0;
+	while (ft_isspace(str[i]))
 		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		if (n > 255 || n < 0)
+			return (-1);
+		n = n * 10 + (str[i++] - '0');
 	}
-	return (num);
+	while (ft_isspace(str[i]))
+		i++;
+	if (str[i])
+		return (-1);
+	return ((int)n);
 }

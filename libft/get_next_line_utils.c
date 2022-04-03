@@ -19,6 +19,8 @@ char	*ft_strjoi(char *s1, char *s2, size_t s2len)
 	if (!s1)
 	{
 		s1 = (char *)malloc(1 * sizeof(char));
+		if (s1 == NULL)
+			return (NULL);
 		s1[0] = '\0';
 	}
 	s3 = (char *)malloc(sizeof(char) * (ft_strlen(s1) + s2len + 1));

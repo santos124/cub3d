@@ -80,8 +80,9 @@ void	check_map_format(char *file, int *fd)
 	int	num;
 
 	num = ft_strlen(file);
-	if (ft_strncmp(file + num - 4, ".cub", 4) || num < 5)
-		ft_error("Error: map format!", NULL);
+	if (ft_strncmp(file + num - 4, ".cub", 4) || num < 5
+		|| read(*fd, 0, 0) < 0)
+		ft_error("Error: incorrect map format!", NULL);
 	if (*fd == -1)
 		ft_error("Error: mapfile not detected!", NULL);
 }

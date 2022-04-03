@@ -15,6 +15,8 @@
 t_parser	*ft_init_struct(t_parser *p)
 {
 	p = (t_parser *)malloc(sizeof(t_parser) * 1);
+	if (!p)
+		ft_error("Error: malloc error!", p);
 	*p = (t_parser){0};
 	return (p);
 }

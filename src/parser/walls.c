@@ -24,6 +24,12 @@ static int	sub_check_line(t_parser *p, int *i, int *j, int *last)
 		*last = 0;
 		return (1);
 	}
+	else if (p->map[*i][*j] == 'W' || p->map[*i][*j] == 'E'
+		|| p->map[*i][*j] == 'N' || p->map[*i][*j] == 'S')
+	{
+		*last = 0;
+		return (1);
+	}
 	else if (p->map[*i][*j] == ' ' && last == 0)
 		return (0);
 	else if (p->map[*i][*j - 1] == ' ' && p->map[*i][*j] == '0')
@@ -68,6 +74,12 @@ static int	sub_check_column(t_parser *p, int *i, int *j, int *last)
 		return (1);
 	}
 	else if (p->map[*i][*j] == '0')
+	{
+		*last = 0;
+		return (1);
+	}
+	else if (p->map[*i][*j] == 'W' || p->map[*i][*j] == 'E'
+		|| p->map[*i][*j] == 'N' || p->map[*i][*j] == 'S')
 	{
 		*last = 0;
 		return (1);
