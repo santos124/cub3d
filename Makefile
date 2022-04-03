@@ -50,7 +50,7 @@ $(LIBFT)	: Makefile $(LIBFTDIR)/libft.h $(LIBFTDIR)/Makefile
 $(LIBMLX)	: Makefile $(LIBMLXDIR)/mlx.h $(LIBMLXDIR)/Makefile
 			make -C $(LIBMLXDIR)
 
-%.o			:	%.c Makefile $(HEADER)
+%.o			:	%.c Makefile $(HEADER) $(LIBFT)
 			$(CC) $(CFLAGS) -c $< -o $@
 
 re: 		fclean all
