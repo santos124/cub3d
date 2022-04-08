@@ -96,7 +96,6 @@ void	ft_cast_rays(t_game *game)
 		game->cosinus = cos(game->ray.start);
 		game->sinus = sin(game->ray.start);
 		get_end_ray_pos(game);
-		game->side_img = get_side_cub(game, &game->ray);
 		ft_draw_ray(game, game->d_x++, game->ray);
 	}
 }

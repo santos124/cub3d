@@ -74,7 +74,7 @@ static int	get_color(int type, char *buf, t_parser *p)
 	while (k >= 0)
 	{
 		color = ft_atoi(split[k]);
-		if (color >= 255 || color < 0)
+		if (color > 255 || color < 0)
 			ft_error("Error: wrong RGB value!", p);
 		p->color_bot_ceil[type][k] = color;
 		k--;
