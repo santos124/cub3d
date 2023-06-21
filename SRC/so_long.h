@@ -12,6 +12,8 @@
 
 #ifndef SO_LONG_H
 # define SCALE 16
+# define HEIGHT 600
+# define WIDTH 800
 # define SO_LONG_H
 # include	<stdio.h>
 # include	<stdlib.h>
@@ -23,51 +25,49 @@
 
 typedef struct s_img {
 	void	*img;
+	char	*addr;
+	int		bpp;
+	int		l_len;
+	int		end;
 	int		w;
 	int		h;
 }				t_img;
 
-typedef struct s_draw {
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		l_len;
-	int		end;
-}				t_draw;
-
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		l_len;
-	int		end;
-
 typedef struct	s_plr //структура для игрока и луча
 {
-	float		x;
-	float		y;
-	float		dir;
-	float		start;
-	float		end;
+	float		x; // х позиция
+	float		y; // у позиция
+	float		angle; // направление, куда смотрит игрок в рад вид сверху
+	float		start; // левый диапазон направления в рад вид сверху
+	float		end; // правый диапазон направления в рад вид сверху
 }				  t_plr;
 
-typedef struct s_game {
+typedef struct s_game
+{
 	void	*mlx;
 	void	*win;
-	t_draw	*draw;
-	t_img	*space;
-	t_img	*wall;
-	t_img	*food;
-	t_img	*exit;
-	t_img	*pers;
-	t_plr	*plr;
+	t_img	*draw; // полотно, которое выводится на экран
+//	t_img	*space;// удалить
+//	t_img	*wall;//удалить
+//	t_img	*food;//удалить
+//	t_img	*exit;//удалить
+//	t_img	*pers;//удалить
+	t_plr	*plr; // структура игрока
+	t_img	*north_wall; //
+	t_img	*west_wall; //
+	t_img	*south_wall; //
+	t_img	*east_wall; //
+	float	x_side; //
+	float	fov;
 	char	*map_name;
 	char	**map;
-	int		move_cnt;
-	int		food_cnt;
-	int		exit_cnt;
-	int		pers_cnt;
-	int		did_move;
-	int		eat_food;
+//	int		move_cnt;//удалить
+//	int		food_cnt;//удалить
+//	int		exit_cnt;//удалить
+//	int		pers_cnt;//удалить
+//	int		did_move;//удалить
+//	int		eat_food;//удалить
+	float	side_cub;
 	int		p_x;
 	int		p_y;
 	int		h;

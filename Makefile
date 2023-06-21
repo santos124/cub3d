@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME				= so_long
+NAME				= cub3d
 HEADER		 		= SRC/so_long.h
 HEADER_B		 	= SRC_B/so_long_bonus.h
 SRCS				= SRC/main.c\

@@ -34,7 +34,6 @@ static void	pers_find(t_game *game)
 	}
 	game->plr->x = game->p_x;
 	game->plr->y = game->p_y;
-	printf("window[%f][%f]\n", game->plr->x, game->plr->y);
 }
 
 static void	valid_map_continue(t_game *game)
@@ -43,8 +42,8 @@ static void	valid_map_continue(t_game *game)
 	int	y;
 
 	y = 0;
-	if (game->exit_cnt == 0 || game->food_cnt == 0 || game->pers_cnt != 1)
-		game_close(4, game);
+//	if (game->exit_cnt == 0 || game->food_cnt == 0 || game->pers_cnt != 1)
+//		game_close(4, game);
 	x = 0;
 	while (x < game->w)
 	{
@@ -72,16 +71,16 @@ static void	valid_map(t_game *game)
 		x = 0;
 		while (x < game->w)
 		{
-			if (ft_strlen(game->map[y]) != (size_t)game->w || (game->map[y][x]
-				!= '1' && game->map[y][x] != '0' && game->map[y][x] != 'C' &&
-				game->map[y][x] != 'P' && game->map[y][x] != 'E'))
-				game_close(4, game);
-			if (game->map[y][x] == 'P')
-				game->pers_cnt++;
-			if (game->map[y][x] == 'C')
-				game->food_cnt++;
-			if (game->map[y][x] == 'E')
-				game->exit_cnt++;
+//			if (ft_strlen(game->map[y]) != (size_t)game->w || (game->map[y][x]
+//				!= '1' && game->map[y][x] != '0' && game->map[y][x] != 'C' &&
+//				game->map[y][x] != 'P' && game->map[y][x] != 'E'))
+//				game_close(4, game);
+//			if (game->map[y][x] == 'P')
+//				game->pers_cnt++;
+//			if (game->map[y][x] == 'C')
+//				game->food_cnt++;
+//			if (game->map[y][x] == 'E')
+//				game->exit_cnt++;
 			x++;
 		}
 		y++;
