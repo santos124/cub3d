@@ -15,19 +15,15 @@
 static size_t	ft_kl(char const *s1, char const *set)
 {
 	size_t		i;
-	size_t		j;
 	size_t		kl;
-	size_t		kr;
 
 	i = 0;
 	kl = 0;
-	kr = 0;
 	while (ft_strchr(set, s1[i]) && i < ft_strlen(s1))
 	{
 		kl++;
 		i++;
 	}
-	j = ft_strlen(s1) - 1;
 	return (kl);
 }
 
@@ -58,12 +54,8 @@ static size_t	ft_kr(char const *s1, char const *set)
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*s2;
-	size_t	i;
-	size_t	j;
 	int		tmp;
 
-	j = 0;
-	i = 0;
 	if (!s1)
 		return (NULL);
 	if (s1[0] == 0)

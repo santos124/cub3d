@@ -31,7 +31,7 @@ SRCS				= src/main.c\
 
 OBJS				= ${SRCS:.c=.o}
 CC					= clang
-CFLAGS  			= -Wall -Wextra -Werror -g
+CFLAGS  			= -Wall -Wextra -Werror -v
 LIBFTDIR			=	libft
 LIBFT				=	$(LIBFTDIR)/libft.a
 LIBMLXDIR			=	mlx
@@ -41,7 +41,7 @@ all:		${NAME}
 
 $(NAME)		:	$(OBJS) $(LIBFT) $(LIBMLX) $(HEADER) Makefile
 			$(CC) $(CFLAGS)\
-			-lmlx -framework OpenGL -framework Appkit\
+			-Lmlx -lmlx -framework OpenGL -framework Appkit\
 			$(LIBFT) $(LIBMLX) $(OBJS) -o $(NAME)
 
 $(LIBFT)	: Makefile $(LIBFTDIR)/libft.h $(LIBFTDIR)/Makefile
