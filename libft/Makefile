@@ -28,8 +28,8 @@ SRC =	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c\
 OBJ = $(SRC:.c=.o)
 
 CFLAGS = -Wall -Werror -Wextra
-CFLAGS+=-O2
-CFLAGS+= -DSTRINGPUTX11
+# CFLAGS+=-O2
+# CFLAGS+= -DSTRINGPUTX11
 
 
 CC = clang
@@ -42,7 +42,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ) $(LH) Makefile
 	$(AR) $(ARFLAGS) $@ $(OBJ)
-	ranlib $(NAME)
+	# ranlib $(NAME)
 
 %.o : %.c $(LH) Makefile
 	$(CC) $(CFLAGS) -c $<

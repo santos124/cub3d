@@ -31,7 +31,7 @@ SRCS				= src/main.c\
 
 OBJS				= ${SRCS:.c=.o}
 CC					= clang
-CFLAGS  			= -Wall -Wextra -Werror -v
+CFLAGS  			= -Wall -Wextra -Werror
 LIBFTDIR			=	libft
 LIBFT				=	$(LIBFTDIR)/libft.a
 LIBMLXDIR			=	mlx

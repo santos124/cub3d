@@ -2,5 +2,5 @@
 #include <stdio.h>
 
 int main() {
-    printf("xyu %zu", ft_strlen("asd"));
+    printf("privet %zu", ft_strlen("asd"));
 }
